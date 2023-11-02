@@ -1,5 +1,15 @@
 <template>
   <div class="layout-container">
+    <div class="color-mode">
+      <input type="checkbox" id="mode" v-model="mode" />
+      <label for="mode" @click="changeColor">
+        <div class="circle">
+          <img src="../assets/moon.png" alt="moon" />
+          <img src="../assets/sun.png" alt="sun" />
+          <div class="ball" :style="{ top: mode === true ? '50%' : '0' }"></div>
+        </div>
+      </label>
+    </div>
     <div class="snow">
       <div
         class="snow-item"
@@ -24,10 +34,34 @@
 </template>
 
 <script setup>
+import { useCounterStore } from "../store/index";
+import { storeToRefs } from "pinia";
+
+const store = useCounterStore();
+let { mode } = storeToRefs(store);
+
 let getRandom = () => {
   return Math.random() * 95;
 };
 let snowQty = ref(70);
+
+let changeColor = () => {
+  if (mode.value === false) {
+    document.documentElement.style.setProperty("--primary", "#FFF2D8");
+    document.documentElement.style.setProperty("--pastelPrimary", "#EAD7BB");
+    document.documentElement.style.setProperty("--purple", "#BCA37F");
+    document.documentElement.style.setProperty("--white", "#000000");
+    document.documentElement.style.setProperty("--darkBg", "#e9ca9c");
+    document.documentElement.style.setProperty("--gray", "#737373");
+  } else {
+    document.documentElement.style.setProperty("--primary", "#25243c");
+    document.documentElement.style.setProperty("--pastelPrimary", "#333151");
+    document.documentElement.style.setProperty("--purple", "#846cb6");
+    document.documentElement.style.setProperty("--white", "#ffffff");
+    document.documentElement.style.setProperty("--darkBg", "#161428");
+    document.documentElement.style.setProperty("--gray", "rgb(140, 140, 140)");
+  }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -36,8 +70,50 @@ let snowQty = ref(70);
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-color: #161428;
+  background-color: $darkBg;
   grid-template-columns: 1fr auto 1fr;
+  position: relative;
+
+  .color-mode {
+    position: absolute;
+    top: 50px;
+    right: 10px;
+    z-index: 300;
+
+    input {
+      visibility: hidden;
+    }
+
+    .circle {
+      position: relative;
+      height: 100px;
+      width: 50px;
+      background-color: $white;
+      border-radius: 100px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      background-color: $primary;
+
+      img {
+        width: 100%;
+        padding: 0.7rem;
+      }
+
+      .ball {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        height: 50px;
+        border-radius: 100px;
+        transition: all 0.3s ease-out;
+        background-image: linear-gradient(to bottom, #bd69e2, #d45795);
+        box-shadow: 0px 0px 16px #d45795;
+      }
+    }
+  }
 
   @media only screen and (max-width: 500px) {
     grid-template-columns: 1fr;
@@ -72,7 +148,7 @@ let snowQty = ref(70);
       position: absolute;
       width: 3px;
       height: 3px;
-      background-color: rgb(140, 140, 140);
+      background-color: $gray;
       border-radius: 100px;
     }
   }

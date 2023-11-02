@@ -1,6 +1,9 @@
-$primary: #25243c;
-$pastelPrimary: #333151;
-$purple: #846cb6;
+$primary: var(--primary);
+$pastelPrimary: var(--pastelPrimary);
+$purple: var(--purple);
+$white: var(--white);
+$darkBg: var(--darkBg);
+$gray: var(--gray);
 
 *{
     margin: 0;
@@ -10,4 +13,13 @@ $purple: #846cb6;
         "Nunito Sans",
         -apple-system,
         sans-serif;
+}
+
+:root{
+    --primary: #25243c;
+    --pastelPrimary: #333151;
+    --purple: #846cb6;
+    --white: #ffffff;
+    --darkBg: #161428;
+    --gray: rgb(140, 140, 140);
 }

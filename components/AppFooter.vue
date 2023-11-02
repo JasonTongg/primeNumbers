@@ -5,26 +5,32 @@
       @click="changeActive(0)"
       :class="active[0] === true && 'active'"
     >
-      <img src="../assets/menu.svg" alt="" />
+      <img src="../assets/setting.png" alt="" />
     </div>
     <div
       class="img-container"
       @click="changeActive(1)"
       :class="active[1] === true && 'active'"
     >
-      <img src="../assets/menu.svg" alt="" />
+      <img src="../assets/menu.svg" alt="" v-if="mode === false" />
+      <img src="../assets/dark-menu.png" alt="" v-else />
     </div>
     <div
       class="img-container"
       @click="changeActive(2)"
       :class="active[2] === true && 'active'"
     >
-      <img src="../assets/menu.svg" alt="" />
+      <img src="../assets/profile.png" alt="" />
     </div>
   </div>
 </template>
 
 <script setup>
+import { useCounterStore } from "../store/index";
+import { storeToRefs } from "pinia";
+
+const store = useCounterStore();
+let { mode } = storeToRefs(store);
 let active = ref([false, true, false]);
 
 let changeActive = (index) => {
@@ -60,7 +66,7 @@ let changeActive = (index) => {
     }
 
     img {
-      width: 30px;
+      width: 40px;
     }
   }
 }

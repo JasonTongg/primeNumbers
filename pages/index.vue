@@ -6,13 +6,19 @@
       :key="i"
       :style="{ top: getRandom() + '%', left: getRandom() + '%' }"
     ></div>
-    <img src="../assets/logo.svg" alt="logo" />
+    <img src="../assets/dark-logo.png" alt="logo" v-if="mode === true" />
+    <img src="../assets/logo.png" alt="logo" v-else />
     <NuxtLink to="pemula">Pemula</NuxtLink>
     <NuxtLink to="amatir">Amatir</NuxtLink>
   </div>
 </template>
 
 <script setup>
+import { useCounterStore } from "../store/index";
+import { storeToRefs } from "pinia";
+
+const store = useCounterStore();
+let { mode } = storeToRefs(store);
 let getRandom = () => {
   return Math.random() * 95;
 };
@@ -34,7 +40,7 @@ let getRandom = () => {
     position: absolute;
     width: 3px;
     height: 3px;
-    background-color: white;
+    background-color: $white;
     border-radius: 100px;
   }
 
@@ -43,11 +49,12 @@ let getRandom = () => {
     left: 50%;
     transform: translateX(-50%);
     top: 50px;
+    width: 200px;
   }
 
   a {
     padding: 0.5rem 1rem;
-    color: white;
+    color: $white;
     background-color: $pastelPrimary;
     border: none;
     outline: none;
@@ -60,6 +67,7 @@ let getRandom = () => {
     cursor: pointer;
     text-decoration: none;
     text-align: center;
+    transition: all 0.2s linear;
 
     &:hover {
       transform: translateY(-6px);
