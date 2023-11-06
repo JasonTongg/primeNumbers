@@ -12,8 +12,7 @@
       @click="changeActive(1)"
       :class="active[1] === true && 'active'"
     >
-      <img src="../assets/menu.svg" alt="" v-if="mode === false" />
-      <img src="../assets/dark-menu.png" alt="" v-else />
+      <img src="../assets/menu.svg" alt="" />
     </div>
     <div
       class="img-container"

@@ -40,7 +40,7 @@ let getRandom = () => {
     position: absolute;
     width: 3px;
     height: 3px;
-    background-color: $white;
+    background-color: $white2;
     border-radius: 100px;
   }
 

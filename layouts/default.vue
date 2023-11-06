@@ -47,17 +47,19 @@ let snowQty = ref(70);
 
 let changeColor = () => {
   if (mode.value === false) {
-    document.documentElement.style.setProperty("--primary", "#FFF2D8");
-    document.documentElement.style.setProperty("--pastelPrimary", "#EAD7BB");
-    document.documentElement.style.setProperty("--purple", "#BCA37F");
-    document.documentElement.style.setProperty("--white", "#000000");
-    document.documentElement.style.setProperty("--darkBg", "#e9ca9c");
+    document.documentElement.style.setProperty("--primary", "#d8cfd0");
+    document.documentElement.style.setProperty("--pastelPrimary", "#697184");
+    document.documentElement.style.setProperty("--purple", "#b1a6a4");
+    document.documentElement.style.setProperty("--white", "#ffffff");
+    document.documentElement.style.setProperty("--white2", "#000000");
+    document.documentElement.style.setProperty("--darkBg", "#f2f1ef");
     document.documentElement.style.setProperty("--gray", "#737373");
   } else {
     document.documentElement.style.setProperty("--primary", "#25243c");
     document.documentElement.style.setProperty("--pastelPrimary", "#333151");
     document.documentElement.style.setProperty("--purple", "#846cb6");
     document.documentElement.style.setProperty("--white", "#ffffff");
+    document.documentElement.style.setProperty("--white2", "#ffffff");
     document.documentElement.style.setProperty("--darkBg", "#161428");
     document.documentElement.style.setProperty("--gray", "rgb(140, 140, 140)");
   }
