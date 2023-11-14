@@ -7,21 +7,15 @@ export const useCounterStore = defineStore("counter", () => {
     materi: [
       {
         title: "Bilangan Prima",
-        progress: 12,
-        end: 12,
+        progress: 1,
+        end: 4,
         show: true,
       },
       {
         title: "Mengetahui Bilangan Prima",
-        progress: 5,
-        end: 12,
+        progress: 1,
+        end: 3,
         show: true,
-      },
-      {
-        title: "Cara Cepat Bilangan Prima",
-        progress: 0,
-        end: 12,
-        show: false,
       },
     ],
     quiz: [
