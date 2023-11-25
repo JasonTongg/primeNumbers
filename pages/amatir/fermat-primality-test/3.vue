@@ -3,7 +3,7 @@
     <div class="content-container">
       <div class="content-header">
         <div class="dot-container">
-          <NuxtLink to="/pemula"
+          <NuxtLink to="/amatir"
             ><img src="../../../assets/left-arrow.png" alt="back"
           /></NuxtLink>
           <div
@@ -17,7 +17,7 @@
           <div class="left" @click="prev">
             <img src="../../../assets/right.svg" alt="" />
           </div>
-          <div class="count">2</div>
+          <div class="count">3</div>
           <div ref="right" class="right" @click="next">
             <img src="../../../assets/left.svg" alt="" />
           </div>
@@ -41,20 +41,20 @@ import { storeToRefs } from "pinia";
 const store = useCounterStore();
 const router = useRouter();
 const right = ref(null);
-let { pemulaModule, countTime } = storeToRefs(store);
+let { amatirModule, countTime } = storeToRefs(store);
 let countValue = ref(countTime.value);
-let data = pemulaModule.value.materi[0];
+let data = amatirModule.value.materi[3];
 
 if (data.progress !== data.end) {
-  store.updatePemulaBilanganPrima(2);
+  store.updateAmatirModule(3, 3);
 }
 
 let prev = () => {
-  router.push("/pemula/bilangan-prima/1");
+  router.push("/amatir/fermat-primality-test/2");
 };
 let next = () => {
   if (right.value.classList.contains("active"))
-    router.push("/pemula/bilangan-prima/3");
+    router.push("/amatir/fermat-primality-test/4");
 };
 
 let intervalCounter = setInterval(() => {

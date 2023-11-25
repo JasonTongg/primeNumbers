@@ -2,7 +2,7 @@
   <div class="pemula-container">
     <div class="header">
       <NuxtLink to="/"
-        ><img src="../assets/left-arrow.png" alt="back"
+        ><img src="../../assets/left-arrow.png" alt="back"
       /></NuxtLink>
       <h2>Amatir</h2>
     </div>
@@ -12,10 +12,11 @@
         v-for="(item, index) in amatirModule.materi"
         :class="checkActive(item)"
         :key="index"
+        @click="startLearning(item)"
       >
         <h3><div class="close" v-if="item.progress === 0"></div>{{ item.title }}</h3>
         <p v-if="item.progress >= item.end">
-          <img src="../assets/check.svg" alt="check" />Done
+          <img src="../../assets/check.svg" alt="check" />Done
         </p>
         <p v-else>
             <div class="close" v-if="item.progress === 0"></div>
@@ -37,10 +38,11 @@
         v-for="(item, index) in amatirModule.quiz"
         :class="checkActive(item)"
         :key="index"
+        @click="startLearning(item)"
       >
         <h3><div class="close" v-if="item.progress === 0"></div>{{ item.title }}</h3>
         <p v-if="item.progress >= item.end">
-          <img src="../assets/check.svg" alt="check" />Done
+          <img src="../../assets/check.svg" alt="check" />Done
         </p>
         <p v-else>
             <div class="close" v-if="item.progress === 0"></div>
@@ -62,12 +64,22 @@ import { storeToRefs } from "pinia";
 
 const store = useCounterStore();
 let { amatirModule } = storeToRefs(store);
+const router = useRouter();
 
 let checkActive = (item) => {
     if (item.show === false) {
         return 'active'
     }
     return ''
+};
+let startLearning = (data) => {
+  if (data.show) {
+    if (data.progress < data.end && data.progress !== 0) {
+      router.push(`amatir/${data.title.split(" ").join("-").toLowerCase()}/${data.progress}`)
+    } else {
+      router.push(`amatir/${data.title.split(" ").join("-").toLowerCase()}/1`)
+    }
+  }
 };
 </script>
 

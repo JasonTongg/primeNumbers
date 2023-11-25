@@ -62,6 +62,8 @@ let changeActive = (index) => {
       background-image: linear-gradient(to bottom, #bd69e2, #d45795);
       transform: translateY(-30px);
       box-shadow: 0px 0px 16px #d45795;
+      position: relative;
+      z-index: 100;
     }
 
     img {

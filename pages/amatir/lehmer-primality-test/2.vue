@@ -3,7 +3,7 @@
     <div class="content-container">
       <div class="content-header">
         <div class="dot-container">
-          <NuxtLink to="/pemula"
+          <NuxtLink to="/amatir"
             ><img src="../../../assets/left-arrow.png" alt="back"
           /></NuxtLink>
           <div
@@ -41,20 +41,20 @@ import { storeToRefs } from "pinia";
 const store = useCounterStore();
 const router = useRouter();
 const right = ref(null);
-let { pemulaModule, countTime } = storeToRefs(store);
+let { amatirModule, countTime } = storeToRefs(store);
 let countValue = ref(countTime.value);
-let data = pemulaModule.value.materi[0];
+let data = amatirModule.value.materi[4];
 
 if (data.progress !== data.end) {
-  store.updatePemulaBilanganPrima(2);
+  store.updateAmatirModule(2, 4);
 }
 
 let prev = () => {
-  router.push("/pemula/bilangan-prima/1");
+  router.push("/amatir/lehmer-primality-test/1");
 };
 let next = () => {
   if (right.value.classList.contains("active"))
-    router.push("/pemula/bilangan-prima/3");
+    router.push("/amatir/lehmer-primality-test/3");
 };
 
 let intervalCounter = setInterval(() => {

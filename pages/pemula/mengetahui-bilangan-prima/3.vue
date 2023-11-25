@@ -3,6 +3,9 @@
     <div class="content-container">
       <div class="content-header">
         <div class="dot-container">
+          <NuxtLink to="/pemula"
+            ><img src="../../../assets/left-arrow.png" alt="back"
+          /></NuxtLink>
           <div
             v-for="(item, index) in ['red', 'yellow', 'blue']"
             :key="index"
@@ -15,14 +18,29 @@
             <img src="../../../assets/right.svg" alt="" />
           </div>
           <div class="count">3</div>
-          <div class="right" @click="next">
+          <div ref="right" class="right" @click="next">
             <img src="../../../assets/left.svg" alt="" />
+          </div>
+          <div ref="counter" class="count2" v-if="countValue > 0">
+            {{ countValue }}s
           </div>
         </div>
       </div>
       <div class="content-body">
         <img class="board" src="../../../assets/board.png" alt="" />
         <img class="teacher" src="../../../assets/teacher.png" alt="" />
+      </div>
+      <div class="popup-backdrop" v-if="showPopup">
+        <div class="popup-content">
+          <h2>Selamat</h2>
+          <h3>Bagian ini telah selesai..</h3>
+          <div class="buttons">
+            <NuxtLink to="/">Home</NuxtLink>
+            <NuxtLink to="/pemula/mengetahui-bilangan-prima/1"
+              >Berikutnya</NuxtLink
+            >
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -34,12 +52,29 @@ import { storeToRefs } from "pinia";
 
 const store = useCounterStore();
 const router = useRouter();
-let { pemulaModule } = storeToRefs(store);
-let data = pemulaModule.value.materi[0];
+const right = ref(null);
+let { pemulaModule, countTime } = storeToRefs(store);
+let countValue = ref(countTime.value);
+let showPopup = ref(false);
+let data = pemulaModule.value.materi[1];
+
+store.updatePemulaMengetahuiBilanganPrima(3);
+store.showQuizSection("pemula", 0, true);
 
 let prev = () => {
   router.push("/pemula/mengetahui-bilangan-prima/2");
 };
+let next = () => {
+  showPopup.value = true;
+};
+let intervalCounter = setInterval(() => {
+  countValue.value--;
+}, 1000);
+
+setTimeout(() => {
+  right.value.classList.add("active");
+  clearInterval(intervalCounter);
+}, countTime.value * 1000);
 </script>
 
 <style lang="scss" scoped>
@@ -50,12 +85,75 @@ let prev = () => {
   justify-content: center;
   width: 100%;
   height: 100%;
+  position: relative;
 
   .content-container {
     width: 100%;
     height: 100%;
     background-color: $pastelPrimary;
     border-radius: 10px;
+
+    .popup-backdrop {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(37, 36, 60, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .popup-content {
+        background-color: $primary;
+        color: white;
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        border-radius: 15px;
+        overflow: hidden;
+        animation: show 1s linear;
+
+        h2,
+        h3 {
+          font-weight: normal;
+        }
+
+        h2 {
+          margin-top: 1rem;
+        }
+
+        h3 {
+          margin-bottom: 1rem;
+        }
+
+        .buttons {
+          display: flex;
+          width: 100%;
+          align-items: center;
+          justify-content: center;
+
+          a {
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+            padding: 1rem;
+
+            &:first-of-type {
+              background-color: #846cb6;
+            }
+            &:last-of-type {
+              background-color: #49a157;
+            }
+          }
+        }
+      }
+    }
 
     .content-header {
       display: flex;
@@ -68,6 +166,16 @@ let prev = () => {
         align-items: center;
         justify-content: flex-start;
         gap: 0.8rem;
+
+        img {
+          width: 30px;
+          margin-right: 2rem;
+          transition: all 0.3s ease-out;
+
+          &:hover {
+            transform: translate(-5px);
+          }
+        }
 
         .dot {
           width: 8px;
@@ -101,6 +209,21 @@ let prev = () => {
             height: 15px;
           }
         }
+
+        .right {
+          transition: all 0.5s linear;
+          opacity: 0.2;
+          cursor: auto;
+        }
+        .right.active {
+          opacity: 1;
+          cursor: pointer;
+        }
+
+        .count2 {
+          opacity: 0.7;
+          font-size: 0.9rem;
+        }
       }
     }
 
@@ -124,6 +247,17 @@ let prev = () => {
         width: 20%;
       }
     }
+  }
+}
+
+@keyframes show {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px);
   }
 }
 </style>

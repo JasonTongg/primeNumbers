@@ -75,7 +75,7 @@ let checkActive = (item) => {
 
 let startLearning = (data) => {
   if (data.show) {
-    if (data.progress < data.end) {
+    if (data.progress < data.end && data.progress !== 0) {
       router.push(`pemula/${data.title.split(" ").join("-").toLowerCase()}/${data.progress}`)
     } else {
       router.push(`pemula/${data.title.split(" ").join("-").toLowerCase()}/1`)

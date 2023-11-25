@@ -12,12 +12,14 @@
   "devDependencies": {
     "@nuxt/devtools": "latest",
     "@nuxtjs/style-resources": "^1.2.1",
+    "@pinia-plugin-persistedstate/nuxt": "^1.2.0",
     "nuxt": "^3.7.4",
     "sass": "^1.68.0",
     "sass-loader": "10.1.1"
   },
   "dependencies": {
     "@pinia/nuxt": "^0.4.11",
-    "pinia": "^2.1.6"
+    "pinia": "^2.1.6",
+    "pinia-plugin-persistedstate": "^3.2.0"
   }
 }

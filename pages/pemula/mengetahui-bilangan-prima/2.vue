@@ -3,6 +3,9 @@
     <div class="content-container">
       <div class="content-header">
         <div class="dot-container">
+          <NuxtLink to="/pemula"
+            ><img src="../../../assets/left-arrow.png" alt="back"
+          /></NuxtLink>
           <div
             v-for="(item, index) in ['red', 'yellow', 'blue']"
             :key="index"
@@ -15,8 +18,11 @@
             <img src="../../../assets/right.svg" alt="" />
           </div>
           <div class="count">2</div>
-          <div class="right" @click="next">
+          <div ref="right" class="right" @click="next">
             <img src="../../../assets/left.svg" alt="" />
+          </div>
+          <div ref="counter" class="count2" v-if="countValue > 0">
+            {{ countValue }}s
           </div>
         </div>
       </div>
@@ -34,15 +40,31 @@ import { storeToRefs } from "pinia";
 
 const store = useCounterStore();
 const router = useRouter();
-let { pemulaModule } = storeToRefs(store);
-let data = pemulaModule.value.materi[0];
+const right = ref(null);
+let { pemulaModule, countTime } = storeToRefs(store);
+let countValue = ref(countTime.value);
+let data = pemulaModule.value.materi[1];
+
+if (data.progress !== data.end) {
+  store.updatePemulaMengetahuiBilanganPrima(2);
+}
 
 let prev = () => {
   router.push("/pemula/mengetahui-bilangan-prima/1");
 };
 let next = () => {
-  router.push("/pemula/mengetahui-bilangan-prima/3");
+  if (right.value.classList.contains("active"))
+    router.push("/pemula/mengetahui-bilangan-prima/3");
 };
+
+let intervalCounter = setInterval(() => {
+  countValue.value--;
+}, 1000);
+
+setTimeout(() => {
+  right.value.classList.add("active");
+  clearInterval(intervalCounter);
+}, countTime.value * 1000);
 </script>
 
 <style lang="scss" scoped>
@@ -71,6 +93,16 @@ let next = () => {
         align-items: center;
         justify-content: flex-start;
         gap: 0.8rem;
+
+        img {
+          width: 30px;
+          margin-right: 2rem;
+          transition: all 0.3s ease-out;
+
+          &:hover {
+            transform: translate(-5px);
+          }
+        }
 
         .dot {
           width: 8px;
@@ -103,6 +135,21 @@ let next = () => {
           img {
             height: 15px;
           }
+        }
+
+        .right {
+          transition: all 0.5s linear;
+          opacity: 0.2;
+          cursor: auto;
+        }
+        .right.active {
+          opacity: 1;
+          cursor: pointer;
+        }
+
+        .count2 {
+          opacity: 0.7;
+          font-size: 0.9rem;
         }
       }
     }

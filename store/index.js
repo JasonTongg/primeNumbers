@@ -1,75 +1,128 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
-export const useCounterStore = defineStore("counter", () => {
-  let mode = ref(false);
-  let pemulaModule = ref({
-    materi: [
-      {
-        title: "Bilangan Prima",
-        progress: 1,
-        end: 4,
-        show: true,
-      },
-      {
-        title: "Mengetahui Bilangan Prima",
-        progress: 1,
-        end: 3,
-        show: true,
-      },
-    ],
-    quiz: [
-      {
-        title: "Perkenalan",
-        progress: 0,
-        end: 12,
-        show: false,
-      },
-      {
-        title: "Quiz",
-        progress: 0,
-        end: 12,
-        show: false,
-      },
-    ],
-  });
+export const useCounterStore = defineStore(
+  "counter",
+  () => {
+    let mode = ref(false);
+    let countTime = ref(3);
+    let pemulaModule = ref({
+      materi: [
+        {
+          title: "Bilangan Prima",
+          progress: 0,
+          end: 4,
+          show: true,
+        },
+        {
+          title: "Mengetahui Bilangan Prima",
+          progress: 0,
+          end: 3,
+          show: false,
+        },
+      ],
+      quiz: [
+        {
+          title: "Perkenalan",
+          progress: 0,
+          end: 12,
+          show: false,
+        },
+        {
+          title: "Quiz",
+          progress: 0,
+          end: 12,
+          show: false,
+        },
+      ],
+    });
 
-  let amatirModule = ref({
-    materi: [
-      {
-        title: "Bilangan Prima",
-        progress: 12,
-        end: 12,
-        show: true,
-      },
-      {
-        title: "Mengetahui Bilangan Prima",
-        progress: 5,
-        end: 12,
-        show: true,
-      },
-      {
-        title: "Cara Cepat Bilangan Prima",
-        progress: 0,
-        end: 12,
-        show: false,
-      },
-    ],
-    quiz: [
-      {
-        title: "Perkenalan",
-        progress: 0,
-        end: 12,
-        show: false,
-      },
-      {
-        title: "Quiz",
-        progress: 0,
-        end: 12,
-        show: false,
-      },
-    ],
-  });
+    let amatirModule = ref({
+      materi: [
+        {
+          title: "Faktor Persekutuan Terbesar",
+          progress: 0,
+          end: 3,
+          show: true,
+        },
+        {
+          title: "Relatif Prima",
+          progress: 0,
+          end: 2,
+          show: false,
+        },
+        {
+          title: "Kongruensi",
+          progress: 0,
+          end: 5,
+          show: false,
+        },
+        {
+          title: "Fermat Primality Test",
+          progress: 0,
+          end: 6,
+          show: false,
+        },
+        {
+          title: "Lehmer Primality Test",
+          progress: 0,
+          end: 3,
+          show: false,
+        },
+      ],
+      quiz: [
+        {
+          title: "Perkenalan",
+          progress: 0,
+          end: 12,
+          show: false,
+        },
+        {
+          title: "Quiz",
+          progress: 0,
+          end: 12,
+          show: false,
+        },
+      ],
+    });
 
-  return { mode, pemulaModule, amatirModule };
-});
+    let updatePemulaBilanganPrima = (newProgress) => {
+      pemulaModule.value.materi[0].progress = newProgress;
+    };
+    let updatePemulaMengetahuiBilanganPrima = (newProgress) => {
+      pemulaModule.value.materi[1].progress = newProgress;
+    };
+    let updateAmatirModule = (newProgress, index) => {
+      amatirModule.value.materi[index].progress = newProgress;
+    };
+
+    let showMateriSection = (level, idx, value) => {
+      if (level === "pemula") {
+        pemulaModule.value.materi[idx].show = value;
+      } else {
+        amatirModule.value.materi[idx].show = value;
+      }
+    };
+
+    let showQuizSection = (level, idx, value) => {
+      if (level === "pemula") {
+        pemulaModule.value.quiz[idx].show = value;
+      } else {
+        amatirModule.value.quiz[idx].show = value;
+      }
+    };
+
+    return {
+      mode,
+      pemulaModule,
+      amatirModule,
+      updatePemulaBilanganPrima,
+      updatePemulaMengetahuiBilanganPrima,
+      showSection: showMateriSection,
+      showQuizSection,
+      countTime,
+      updateAmatirModule,
+    };
+  },
+  { persist: true }
+);
