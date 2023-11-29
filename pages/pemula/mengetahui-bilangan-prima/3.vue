@@ -36,9 +36,7 @@
           <h3>Bagian ini telah selesai..</h3>
           <div class="buttons">
             <NuxtLink to="/">Home</NuxtLink>
-            <NuxtLink to="/pemula/mengetahui-bilangan-prima/1"
-              >Berikutnya</NuxtLink
-            >
+            <NuxtLink to="/pemula/perkenalan/1">Berikutnya</NuxtLink>
           </div>
         </div>
       </div>

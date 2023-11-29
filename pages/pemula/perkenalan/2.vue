@@ -3,7 +3,7 @@
     <div class="content-container">
       <div class="content-header">
         <div class="dot-container">
-          <NuxtLink to="/amatir"
+          <NuxtLink to="/pemula"
             ><img src="../../../assets/left-arrow.png" alt="back"
           /></NuxtLink>
           <div
@@ -17,7 +17,7 @@
           <div class="left" @click="prev">
             <img src="../../../assets/right.svg" alt="" />
           </div>
-          <div class="count">3</div>
+          <div class="count">2</div>
           <div ref="right" class="right" @click="next">
             <img src="../../../assets/left.svg" alt="" />
           </div>
@@ -36,7 +36,7 @@
           <h3>Bagian ini telah selesai..</h3>
           <div class="buttons">
             <NuxtLink to="/">Home</NuxtLink>
-            <NuxtLink to="/amatir/perkenalan/1">Berikutnya</NuxtLink>
+            <NuxtLink to="/pemula/quiz">Berikutnya</NuxtLink>
           </div>
         </div>
       </div>
@@ -51,17 +51,16 @@ import { storeToRefs } from "pinia";
 const store = useCounterStore();
 const router = useRouter();
 const right = ref(null);
-let { amatirModule, countTime } = storeToRefs(store);
+let { pemulaModule, countTime } = storeToRefs(store);
 let countValue = ref(countTime.value);
 let showPopup = ref(false);
-let data = amatirModule.value.materi[4];
+let data = pemulaModule.value.quiz[0];
 
-console.log(store);
-store.updateAmatirModule(3, 4);
-store.showQuizSection("amatir", 0, true);
+store.updateQuizModule("pemula", 2, 0);
+store.showQuizSection("pemula", 1, true);
 
 let prev = () => {
-  router.push("/pemula/lehmer-primality-test/2");
+  router.push("/pemula/perkenalan/1");
 };
 let next = () => {
   showPopup.value = true;

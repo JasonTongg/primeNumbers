@@ -3,6 +3,7 @@ export default defineNuxtConfig({
   modules: [
     '@pinia/nuxt',
     '@pinia-plugin-persistedstate/nuxt',
+    '@nuxt/ui'
   ],
   vite: {
     css: {
@@ -14,3 +15,4 @@ export default defineNuxtConfig({
     }
   }
 })
+

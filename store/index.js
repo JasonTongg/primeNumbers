@@ -25,7 +25,7 @@ export const useCounterStore = defineStore(
         {
           title: "Perkenalan",
           progress: 0,
-          end: 12,
+          end: 2,
           show: false,
         },
         {
@@ -74,7 +74,7 @@ export const useCounterStore = defineStore(
         {
           title: "Perkenalan",
           progress: 0,
-          end: 12,
+          end: 3,
           show: false,
         },
         {
@@ -94,6 +94,13 @@ export const useCounterStore = defineStore(
     };
     let updateAmatirModule = (newProgress, index) => {
       amatirModule.value.materi[index].progress = newProgress;
+    };
+    let updateQuizModule = (level, newProgress, index) => {
+      if (level === "pemula") {
+        pemulaModule.value.quiz[index].progress = newProgress;
+      } else {
+        amatirModule.value.quiz[index].progress = newProgress;
+      }
     };
 
     let showMateriSection = (level, idx, value) => {
@@ -122,6 +129,7 @@ export const useCounterStore = defineStore(
       showQuizSection,
       countTime,
       updateAmatirModule,
+      updateQuizModule,
     };
   },
   { persist: true }

@@ -75,7 +75,7 @@ let changeColor = () => {
   background-color: $darkBg;
   grid-template-columns: 1fr auto 1fr;
   position: relative;
-
+  overflow: hidden;
   .color-mode {
     position: absolute;
     top: 50px;

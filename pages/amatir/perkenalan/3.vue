@@ -36,7 +36,7 @@
           <h3>Bagian ini telah selesai..</h3>
           <div class="buttons">
             <NuxtLink to="/">Home</NuxtLink>
-            <NuxtLink to="/amatir/perkenalan/1">Berikutnya</NuxtLink>
+            <NuxtLink to="/amatir/quiz">Berikutnya</NuxtLink>
           </div>
         </div>
       </div>
@@ -54,14 +54,14 @@ const right = ref(null);
 let { amatirModule, countTime } = storeToRefs(store);
 let countValue = ref(countTime.value);
 let showPopup = ref(false);
-let data = amatirModule.value.materi[4];
+let data = amatirModule.value.materi[0];
 
 console.log(store);
-store.updateAmatirModule(3, 4);
-store.showQuizSection("amatir", 0, true);
+store.updateQuizModule("amatir", 3, 0);
+store.showQuizSection("amatir", 1, true);
 
 let prev = () => {
-  router.push("/pemula/lehmer-primality-test/2");
+  router.push("/pemula/perkenalan/2");
 };
 let next = () => {
   showPopup.value = true;
