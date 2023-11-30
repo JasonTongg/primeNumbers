@@ -220,6 +220,7 @@ let onSubmit = () => {
       align-items: center;
       justify-content: center;
       font-size: 1.5rem;
+      color: black;
     }
     .mountain {
       position: absolute;
