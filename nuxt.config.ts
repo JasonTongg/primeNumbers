@@ -3,7 +3,8 @@ export default defineNuxtConfig({
   modules: [
     '@pinia/nuxt',
     '@pinia-plugin-persistedstate/nuxt',
-    '@nuxt/ui'
+    '@nuxt/ui',
+    'nuxt-icon'
   ],
   vite: {
     css: {

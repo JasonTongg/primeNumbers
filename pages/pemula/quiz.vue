@@ -28,6 +28,36 @@
         </div>
       </div>
     </div>
+    <div class="popup-backdrop" v-if="showPopup">
+      <div class="popup-content">
+        <Icon
+          name="material-symbols:check-circle"
+          color="green"
+          class="iconCheck"
+        />
+        <h2>Selamat!</h2>
+        <h3>Tantangan ini berhasil diselesaikan</h3>
+        <div class="buttons">
+          <NuxtLink to="/">Home</NuxtLink>
+        </div>
+      </div>
+    </div>
+    <div class="popup-backdrop" v-if="showPopupFail">
+      <div class="popup-content">
+        <Icon name="ic:baseline-cancel" color="red" class="iconCheck" />
+        <h2>Waktu Habis!!</h2>
+        <h3>Tantangan ini tidak berhasil...</h3>
+        <div class="buttons">
+          <NuxtLink to="/">Home</NuxtLink>
+          <NuxtLink
+            to="/pemula/quiz"
+            style="background-color: red"
+            @click="refresh"
+            >Coba lagi</NuxtLink
+          >
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -39,6 +69,9 @@ let randomNumber = ref([]);
 let minute = ref(9);
 let second = ref(2);
 let score = ref(0);
+let showPopup = ref(false);
+let showPopupFail = ref(false);
+
 let i = 0;
 for (i = 0; i < 8; i++) {
   randomNumber.value.push(Math.round(Math.random() * 98) + 1);
@@ -52,8 +85,13 @@ let intervalTime = setInterval(() => {
 }, 1000);
 
 setTimeout(() => {
+  showPopupFail.value = true;
   clearInterval(intervalTime);
 }, (minute.value * 60 + second.value) * 1000);
+
+let refresh = () => {
+  window.location.reload();
+};
 
 let checkAnswer = () => {
   let random = Math.random();
@@ -62,12 +100,7 @@ let checkAnswer = () => {
     score.value += 20;
     if (score.value >= 1000) {
       clearInterval(intervalTime);
-      toast.add({
-        title: "Your answer is Correct!!",
-        icon: "i-heroicons-check-circle",
-        color: "primary",
-        timeout: "3000",
-      });
+      showPopup.value = true;
     } else {
       toast.add({
         title: "Your answer is Correct!!",
@@ -106,6 +139,79 @@ let checkAnswer = () => {
     height: 100%;
     border-radius: 10px;
     background-color: $pastelPrimary;
+  }
+
+  .popup-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(37, 36, 60, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 500;
+
+    .popup-content {
+      background-color: $primary;
+      color: white;
+      width: 300px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      border-radius: 15px;
+      animation: show 1s linear;
+      position: relative;
+      padding: 1rem;
+
+      .iconCheck {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: -80px;
+        font-size: 100px;
+      }
+
+      h2,
+      h3 {
+        font-weight: normal;
+      }
+
+      h2 {
+        font-size: 2rem;
+      }
+
+      h3 {
+        margin-bottom: 1rem;
+      }
+
+      .buttons {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+
+        a {
+          width: 100px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          text-decoration: none;
+          color: white;
+          padding: 0.5rem 1rem;
+          border-radius: 5px;
+
+          &:first-of-type {
+            background-color: #846cb6;
+          }
+          &:last-of-type {
+            background-color: #49a157;
+          }
+        }
+      }
+    }
   }
 
   .content-container {
@@ -177,6 +283,16 @@ let checkAnswer = () => {
         }
       }
     }
+  }
+}
+@keyframes show {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px);
   }
 }
 </style>
