@@ -9,7 +9,7 @@
     <img src="../assets/dark-logo.png" alt="logo" v-if="mode === true" />
     <img src="../assets/logo.png" alt="logo" v-else />
     <NuxtLink to="pemula">Pemula</NuxtLink>
-    <NuxtLink to="amatir">Amatir</NuxtLink>
+    <NuxtLink to="amatir">Mahir</NuxtLink>
   </div>
 </template>
 

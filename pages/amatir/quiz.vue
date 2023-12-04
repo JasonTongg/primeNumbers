@@ -14,7 +14,7 @@
         <p>0{{ minute }}:{{ second < 10 ? "0" + second : second }}</p>
       </div>
       <div class="white">
-        <h2>{{ tempResult.join("") }}</h2>
+        <h2>{{ tempResult }}</h2>
       </div>
       <img src="../../assets/mountain.png" alt="" class="mountain" />
       <img
@@ -74,6 +74,11 @@
 </template>
 
 <script setup>
+import { useCounterStore } from "../../store/index";
+import { storeToRefs } from "pinia";
+const store = useCounterStore();
+let { amatirQuizQuestion } = storeToRefs(store);
+let questionLength = ref(0);
 let toast = useToast();
 let snowballSize = ref(70);
 let snowballPosition = ref(20);
@@ -84,7 +89,7 @@ let dotColor = ["red", "yellow", "blue"];
 let minute = ref(9);
 let second = ref(59);
 let score = ref(0);
-let tempResult = ref([]);
+let tempResult = ref(0);
 let submitDisabled = ref(false);
 let inputValue = ref();
 let showPopup = ref(false);
@@ -97,11 +102,6 @@ let intervalTime = setInterval(() => {
     minute.value -= 0;
   }
 }, 1000);
-
-let i = 0;
-for (i = 0; i < 8; i++) {
-  tempResult.value.push(Math.round(Math.random() * 8 + 1));
-}
 
 setTimeout(() => {
   showPopupFail.value = true;
@@ -137,11 +137,69 @@ let onChangeInput = (e) => {
   }
 };
 
-let onSubmit = () => {
-  let random = Math.random();
+function __gcd(x, y) {
+  if (typeof x !== "number" || typeof y !== "number") return false;
+  x = Math.abs(x);
+  y = Math.abs(y);
+  while (y) {
+    var t = y;
+    y = x % y;
+    x = t;
+  }
+  return x;
+}
 
-  if (random > 0.5) {
-    tempResult.value.push(inputValue.value);
+function power(a, n, p) {
+  let res = 1;
+  a = a % p;
+
+  while (n > 0) {
+    if ((n & 1) == 1) res = (res * a) % p;
+    n = n >> 1;
+    a = (a * a) % p;
+  }
+  return res;
+}
+
+function isPrime(n, k) {
+  if (n <= 1 || n == 4) return false;
+  if (n <= 3) return true;
+
+  while (k > 0) {
+    let a = Math.floor(Math.random() * (n - 1 - 2) + 2);
+    if (power(a, n - 1, n) != 1) return false;
+    k--;
+  }
+
+  return true;
+}
+
+let checkPrima = (n) => {
+  let p = parseInt(n);
+  let a = Math.round(Math.random() * (p - 2) + 2);
+  if (__gcd(p, a) !== 1) {
+    return false;
+  } else {
+    return isPrime(p, a);
+  }
+};
+
+let initialValue = () => {
+  let questionIndex = Math.floor(
+    Math.random() * store.amatirQuizQuestion[questionLength.value].length
+  );
+  let question = store.amatirQuizQuestion[questionLength.value][questionIndex];
+  tempResult.value = Math.floor(question / 10);
+};
+
+initialValue();
+
+let onSubmit = () => {
+  let random = checkPrima(tempResult.value * 10 + inputValue.value);
+
+  if (random === true) {
+    questionLength.value += 1;
+    initialValue();
     answerCorrect();
     score.value += 10;
     if (score.value >= 100) {

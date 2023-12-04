@@ -1,5 +1,18 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
+import {
+  lima,
+  enam,
+  tujuh,
+  delapan,
+  sembilan,
+  sepuluh,
+  sebelas,
+  duabelas,
+  tigabelas,
+  empatbelas,
+  limabelas,
+} from "../assets/data/prime";
 
 export const useCounterStore = defineStore(
   "counter",
@@ -86,6 +99,20 @@ export const useCounterStore = defineStore(
       ],
     });
 
+    let amatirQuizQuestion = [
+      lima,
+      enam,
+      tujuh,
+      delapan,
+      sembilan,
+      sepuluh,
+      sebelas,
+      duabelas,
+      tigabelas,
+      empatbelas,
+      limabelas,
+    ];
+
     let updatePemulaBilanganPrima = (newProgress) => {
       pemulaModule.value.materi[0].progress = newProgress;
     };
@@ -130,6 +157,7 @@ export const useCounterStore = defineStore(
       countTime,
       updateAmatirModule,
       updateQuizModule,
+      amatirQuizQuestion,
     };
   },
   { persist: true }
