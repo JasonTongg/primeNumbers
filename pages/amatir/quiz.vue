@@ -10,7 +10,7 @@
             :style="{ backgroundColor: color }"
           ></div>
         </div>
-        <p>Score: {{ score }}/100</p>
+        <p>Score: {{ score }}/50</p>
         <p>0{{ minute }}:{{ second < 10 ? "0" + second : second }}</p>
       </div>
       <div class="white">
@@ -75,9 +75,7 @@
 
 <script setup>
 import { useCounterStore } from "../../store/index";
-import { storeToRefs } from "pinia";
 const store = useCounterStore();
-let { amatirQuizQuestion } = storeToRefs(store);
 let questionLength = ref(0);
 let toast = useToast();
 let snowballSize = ref(70);
@@ -114,12 +112,7 @@ let refresh = () => {
 
 let answerCorrect = () => {
   snowballSize.value += 5;
-  if (totalStep.value <= 10) {
-    step.value += 0.2 + (10 - totalStep.value) * 0.02;
-  } else {
-    step.value += 0.2 - (totalStep.value - 10) * 0.02;
-  }
-  snowballPosition.value += 65 / totalStep.value - step.value;
+  snowballPosition.value += 58 / 5;
   manPosition.value = snowballPosition.value - 20;
 };
 
@@ -129,7 +122,7 @@ let onChangeInput = (e) => {
       title: "Please input between 0 to 9",
       icon: "i-heroicons-x-circle",
       color: "red",
-      timeout: "3000",
+      timeout: 3000,
     });
     submitDisabled.value = true;
   } else {
@@ -162,11 +155,12 @@ function power(a, n, p) {
 }
 
 function isPrime(n, k) {
+  console.log(n);
   if (n <= 1 || n == 4) return false;
   if (n <= 3) return true;
-
   while (k > 0) {
     let a = Math.floor(Math.random() * (n - 1 - 2) + 2);
+    console.log(power(a, n - 1, n));
     if (power(a, n - 1, n) != 1) return false;
     k--;
   }
@@ -176,7 +170,7 @@ function isPrime(n, k) {
 
 let checkPrima = (n) => {
   let p = parseInt(n);
-  let a = Math.round(Math.random() * (p - 2) + 2);
+  let a = 3;
   if (__gcd(p, a) !== 1) {
     return false;
   } else {
@@ -189,6 +183,7 @@ let initialValue = () => {
     Math.random() * store.amatirQuizQuestion[questionLength.value].length
   );
   let question = store.amatirQuizQuestion[questionLength.value][questionIndex];
+  console.log(question);
   tempResult.value = Math.floor(question / 10);
 };
 
@@ -202,7 +197,7 @@ let onSubmit = () => {
     initialValue();
     answerCorrect();
     score.value += 10;
-    if (score.value >= 100) {
+    if (score.value >= 50) {
       showPopup.value = true;
       clearInterval(intervalTime);
     }
@@ -210,14 +205,14 @@ let onSubmit = () => {
       title: "Your answer is Correct!!",
       icon: "i-heroicons-check-circle",
       color: "primary",
-      timeout: "3000",
+      timeout: 3000,
     });
   } else {
     toast.add({
       title: "Your answer is Wrong!!",
       icon: "i-heroicons-x-circle",
       color: "red",
-      timeout: "3000",
+      timeout: 3000,
     });
   }
   inputValue.value = "";

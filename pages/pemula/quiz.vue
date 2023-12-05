@@ -62,6 +62,7 @@
 </template>
 
 <script setup>
+import { dua } from "../../assets/data/prime";
 const toast = useToast();
 
 let dots = ref(["red", "yellow", "blue"]);
@@ -72,10 +73,20 @@ let score = ref(0);
 let showPopup = ref(false);
 let showPopupFail = ref(false);
 
-let i = 0;
-for (i = 0; i < 8; i++) {
-  randomNumber.value.push(Math.round(Math.random() * 98) + 1);
-}
+let generateNumber = () => {
+  let i = 0;
+  randomNumber.value = [];
+  for (i = 0; i < 8; i++) {
+    randomNumber.value.push(Math.round(Math.random() * 98) + 1);
+  }
+  let randomPosition = Math.round(Math.random() * 7);
+  let randomPrime = Math.round(Math.random() * dua.length);
+  randomNumber.value[randomPosition] = dua[randomPrime];
+  console.log(dua[randomPrime]);
+};
+
+generateNumber();
+
 let intervalTime = setInterval(() => {
   second.value -= 1;
   if (second.value < 0) {
@@ -93,8 +104,55 @@ let refresh = () => {
   window.location.reload();
 };
 
-let checkAnswer = () => {
-  let random = Math.random();
+function __gcd(x, y) {
+  if (typeof x !== "number" || typeof y !== "number") return false;
+  x = Math.abs(x);
+  y = Math.abs(y);
+  while (y) {
+    var t = y;
+    y = x % y;
+    x = t;
+  }
+  return x;
+}
+
+function power(a, n, p) {
+  let res = 1;
+  a = a % p;
+
+  while (n > 0) {
+    if ((n & 1) == 1) res = (res * a) % p;
+    n = n >> 1;
+    a = (a * a) % p;
+  }
+  return res;
+}
+
+function isPrime(n, k) {
+  if (n <= 1 || n == 4) return false;
+  if (n <= 3) return true;
+
+  while (k > 0) {
+    let a = Math.floor(Math.random() * (n - 1 - 2) + 2);
+    if (power(a, n - 1, n) != 1) return false;
+    k--;
+  }
+
+  return true;
+}
+
+let checkPrima = (n) => {
+  let p = parseInt(n);
+  let a = Math.round(Math.random() * (p - 2) + 2);
+  if (__gcd(p, a) !== 1) {
+    return false;
+  } else {
+    return isPrime(p, a);
+  }
+};
+
+let checkAnswer = (number) => {
+  let random = checkPrima(number);
 
   if (random > 0.5) {
     score.value += 20;
@@ -102,11 +160,12 @@ let checkAnswer = () => {
       clearInterval(intervalTime);
       showPopup.value = true;
     } else {
+      generateNumber();
       toast.add({
         title: "Your answer is Correct!!",
         icon: "i-heroicons-check-circle",
         color: "primary",
-        timeout: "3000",
+        timeout: 3000,
       });
     }
   } else {
@@ -115,7 +174,7 @@ let checkAnswer = () => {
       title: "Your answer is Wrong!!",
       icon: "i-heroicons-x-circle",
       color: "red",
-      timeout: "3000",
+      timeout: 3000,
     });
   }
 };

@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import {
+  empat,
   lima,
   enam,
   tujuh,
@@ -100,6 +101,7 @@ export const useCounterStore = defineStore(
     });
 
     let amatirQuizQuestion = [
+      empat,
       lima,
       enam,
       tujuh,
