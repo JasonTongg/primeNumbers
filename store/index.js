@@ -45,7 +45,7 @@ export const useCounterStore = defineStore(
         {
           title: "Quiz",
           progress: 0,
-          end: 12,
+          end: 1,
           show: false,
         },
       ],
@@ -94,7 +94,7 @@ export const useCounterStore = defineStore(
         {
           title: "Quiz",
           progress: 0,
-          end: 12,
+          end: 1,
           show: false,
         },
       ],
@@ -125,6 +125,7 @@ export const useCounterStore = defineStore(
       amatirModule.value.materi[index].progress = newProgress;
     };
     let updateQuizModule = (level, newProgress, index) => {
+      console.log(level, newProgress, index);
       if (level === "pemula") {
         pemulaModule.value.quiz[index].progress = newProgress;
       } else {

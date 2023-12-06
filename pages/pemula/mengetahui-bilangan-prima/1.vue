@@ -29,6 +29,73 @@
       <div class="content-body">
         <img class="board" src="../../../assets/board.png" alt="" />
         <img class="teacher" src="../../../assets/teacher.png" alt="" />
+        <div class="content">
+          <div class="prime-example">
+            <p>2 <Icon name="mingcute:arrow-right-line"></Icon></p>
+            <p>
+              2 : 1 = 2
+              <span style="font-size: 1rem"
+                ><Icon name="mingcute:arrow-right-line"></Icon> dibagi oleh
+                1</span
+              >
+            </p>
+            <p></p>
+            <p>
+              2 : 2 = 1
+              <span style="font-size: 1rem"
+                ><Icon name="mingcute:arrow-right-line"></Icon> dibagi oleh
+                angka sendiri</span
+              >
+            </p>
+          </div>
+          <p style="text-align: center">Maka 2 adalah bilangan prima</p>
+          <div class="prime-example">
+            <p>3 <Icon name="mingcute:arrow-right-line"></Icon></p>
+            <p>
+              3 : 1 = 3
+              <span style="font-size: 1rem"
+                ><Icon name="mingcute:arrow-right-line"></Icon> dibagi oleh
+                1</span
+              >
+            </p>
+            <p></p>
+            <p>
+              3 : 3 = 1
+              <span style="font-size: 1rem"
+                ><Icon name="mingcute:arrow-right-line"></Icon> dibagi oleh
+                angka sendiri</span
+              >
+            </p>
+          </div>
+          <p style="text-align: center">Maka 3 adalah bilangan prima</p>
+          <div class="prime-example">
+            <p>4 <Icon name="mingcute:arrow-right-line"></Icon></p>
+            <p>
+              4 : 1 = 3
+              <span style="font-size: 1rem"
+                ><Icon name="mingcute:arrow-right-line"></Icon> dibagi oleh
+                1</span
+              >
+            </p>
+            <p></p>
+            <p>
+              4 : 2 = 2
+              <span style="font-size: 1rem"
+                ><Icon name="mingcute:arrow-right-line"></Icon> dibagi oleh
+                2</span
+              >
+            </p>
+            <p></p>
+            <p>
+              4 : 4 = 1
+              <span style="font-size: 1rem"
+                ><Icon name="mingcute:arrow-right-line"></Icon> dibagi oleh
+                angka sendiri</span
+              >
+            </p>
+          </div>
+          <p style="text-align: center">Maka 4 bukan bilangan prima</p>
+        </div>
       </div>
     </div>
   </div>
@@ -160,6 +227,37 @@ setTimeout(() => {
       position: relative;
       width: 100%;
       height: 100%;
+
+      .content {
+        position: absolute;
+        left: 30px;
+        top: 20px;
+        z-index: 2;
+        width: calc(100% - 60px);
+        height: 400px;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        justify-content: center;
+
+        & > * {
+          font-size: 1.5rem;
+          margin: 0;
+        }
+
+        .prime-example {
+          display: grid;
+          grid-template-columns: 50px auto;
+          font-weight: bold;
+          justify-content: center;
+
+          & > * {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+          }
+        }
+      }
 
       .board {
         position: absolute;

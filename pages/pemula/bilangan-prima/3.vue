@@ -29,6 +29,16 @@
       <div class="content-body">
         <img class="board" src="../../../assets/board.png" alt="" />
         <img class="teacher" src="../../../assets/teacher.png" alt="" />
+        <div class="content">
+          <p style="text-align: center">Bilangan Asli</p>
+          <p style="text-align: center">
+            Bilangan asli adalah bilangan yang terdiri dari 1, 2, 3, 4, 5 dst
+          </p>
+          <p style="text-align: center">Bilangan seperti 0, -1, -2, -3</p>
+          <p class="not-prime">
+            Bilangan Prima <Icon name="mingcute:close-line" />
+          </p>
+        </div>
       </div>
     </div>
   </div>
@@ -158,6 +168,43 @@ setTimeout(() => {
       position: relative;
       width: 100%;
       height: 100%;
+
+      .content {
+        position: absolute;
+        left: 30px;
+        top: 20px;
+        z-index: 2;
+        width: calc(100% - 60px);
+        height: 400px;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        justify-content: center;
+
+        & > * {
+          font-size: 1.5rem;
+          margin: 0;
+        }
+
+        .not-prime {
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          height: 50px;
+
+          svg {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            font-size: 6rem;
+            transform: translate(-50%, -50%);
+            color: red;
+            opacity: 0.5;
+          }
+        }
+      }
 
       .board {
         position: absolute;

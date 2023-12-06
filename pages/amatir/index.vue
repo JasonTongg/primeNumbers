@@ -74,10 +74,14 @@ let checkActive = (item) => {
 };
 let startLearning = (data) => {
   if (data.show) {
-    if (data.progress < data.end && data.progress !== 0) {
-      router.push(`amatir/${data.title.split(" ").join("-").toLowerCase()}/${data.progress}`)
+    if (data.title.toLowerCase() !== 'quiz') {
+      if (data.progress < data.end && data.progress !== 0) {
+        router.push(`amatir/${data.title.split(" ").join("-").toLowerCase()}/${data.progress}`)
+      } else {
+        router.push(`amatir/${data.title.split(" ").join("-").toLowerCase()}/1`)
+      }
     } else {
-      router.push(`amatir/${data.title.split(" ").join("-").toLowerCase()}/1`)
+      router.push('amatir/quiz')
     }
   }
 };

@@ -29,6 +29,16 @@
       <div class="content-body">
         <img class="board" src="../../../assets/board.png" alt="" />
         <img class="teacher" src="../../../assets/teacher.png" alt="" />
+        <div class="content">
+          <img src="../../../assets/pemula-quiz-2.jpeg" alt="" />
+          <p style="text-align: center">
+            Setiap permainan akan diberikan target score yang harus dipenuhi
+            serta waktu untuk pengerjaan.
+          </p>
+          <p style="text-align: center">
+            Jika tantangan tidak berhasil maka permainan dianggap kalah.
+          </p>
+        </div>
       </div>
       <div class="popup-backdrop" v-if="showPopup">
         <div class="popup-content">
@@ -113,6 +123,7 @@ setTimeout(() => {
         border-radius: 15px;
         overflow: hidden;
         animation: show 1s linear;
+        z-index: 3;
 
         h2,
         h3 {
@@ -229,6 +240,29 @@ setTimeout(() => {
       position: relative;
       width: 100%;
       height: 100%;
+
+      .content {
+        position: absolute;
+        left: 30px;
+        top: 20px;
+        z-index: 2;
+        width: calc(100% - 60px);
+        height: 400px;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        justify-content: center;
+
+        & > * {
+          font-size: 1.2rem;
+          margin: 0;
+        }
+
+        img {
+          width: 100%;
+          margin-inline: auto;
+        }
+      }
 
       .board {
         position: absolute;

@@ -29,6 +29,12 @@
       <div class="content-body">
         <img class="board" src="../../../assets/board.png" alt="" />
         <img class="teacher" src="../../../assets/teacher.png" alt="" />
+        <div class="content">
+          <p style="text-align: center">Apa itu faktor?</p>
+          <p style="text-align: center">
+            Faktor adalah bilangan yang habis dibagi suatu bilangan
+          </p>
+        </div>
       </div>
     </div>
   </div>
@@ -158,6 +164,24 @@ setTimeout(() => {
       position: relative;
       width: 100%;
       height: 100%;
+
+      .content {
+        position: absolute;
+        left: 30px;
+        top: 20px;
+        z-index: 2;
+        width: calc(100% - 60px);
+        height: 400px;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        justify-content: center;
+
+        & > * {
+          font-size: 1.5rem;
+          margin: 0;
+        }
+      }
 
       .board {
         position: absolute;

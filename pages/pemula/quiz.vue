@@ -63,6 +63,9 @@
 
 <script setup>
 import { dua } from "../../assets/data/prime";
+import { useCounterStore } from "../../store/index";
+
+const store = useCounterStore();
 const toast = useToast();
 
 let dots = ref(["red", "yellow", "blue"]);
@@ -79,10 +82,17 @@ let generateNumber = () => {
   for (i = 0; i < 8; i++) {
     randomNumber.value.push(Math.round(Math.random() * 98) + 1);
   }
+  // do {
   let randomPosition = Math.round(Math.random() * 7);
   let randomPrime = Math.round(Math.random() * dua.length);
-  randomNumber.value[randomPosition] = dua[randomPrime];
-  console.log(dua[randomPrime]);
+  randomNumber.value[randomPosition] =
+    dua[randomPrime - 1 < 0 ? 0 : randomPrime - 1];
+  console.log(
+    dua[randomPrime - 1 < 0 ? 0 : randomPrime - 1],
+    randomPrime,
+    randomPosition
+  );
+  // } while (cek === false);
 };
 
 generateNumber();
@@ -156,9 +166,10 @@ let checkAnswer = (number) => {
 
   if (random > 0.5) {
     score.value += 20;
-    if (score.value >= 1000) {
+    if (score.value >= 100) {
       clearInterval(intervalTime);
       showPopup.value = true;
+      store.updateQuizModule("pemula", 1, 1);
     } else {
       generateNumber();
       toast.add({

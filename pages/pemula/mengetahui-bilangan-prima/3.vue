@@ -29,6 +29,38 @@
       <div class="content-body">
         <img class="board" src="../../../assets/board.png" alt="" />
         <img class="teacher" src="../../../assets/teacher.png" alt="" />
+        <div class="content">
+          <p style="text-align: center">
+            Contoh soal: menentukan bilangan dibawah ini yang merupakan bilangan
+            prima!
+          </p>
+          <div class="grid-number">
+            <p>20 <Icon name="mingcute:close-line"></Icon></p>
+            <p>21</p>
+            <p>44 <Icon name="mingcute:close-line"></Icon></p>
+            <p>
+              29 <Icon name="mingcute:round-fill" style="color: green"></Icon>
+            </p>
+          </div>
+          <p style="text-align: center">
+            20 dan 44 bukan karena bilangan genap dan ingat bahwa satu satunya
+            bilangan genap yang termasuk kedalam bilangan prima adalah 2
+          </p>
+          <div class="number-breakdown">
+            <div class="breakdown">
+              <p style="text-align: center">21</p>
+              <p>21 : 1 = 21</p>
+              <p>21 : 3 = 7</p>
+              <p>21 : 7 = 3</p>
+              <p>21 : 21 = 1</p>
+            </div>
+            <div class="breakdown">
+              <p style="text-align: center">29</p>
+              <p>29 : 1 = 29</p>
+              <p>29 : 29 = 1</p>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="popup-backdrop" v-if="showPopup">
         <div class="popup-content">
@@ -113,6 +145,7 @@ setTimeout(() => {
         border-radius: 15px;
         overflow: hidden;
         animation: show 1s linear;
+        z-index: 3;
 
         h2,
         h3 {
@@ -230,6 +263,60 @@ setTimeout(() => {
       width: 100%;
       height: 100%;
 
+      .content {
+        position: absolute;
+        left: 30px;
+        top: 20px;
+        z-index: 2;
+        width: calc(100% - 60px);
+        height: 400px;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        justify-content: center;
+
+        & > * {
+          font-size: 1rem;
+          margin: 0;
+        }
+
+        .number-breakdown {
+          display: flex;
+          justify-content: center;
+          gap: 2rem;
+
+          .breakdown {
+            display: flex;
+            flex-direction: column;
+            font-weight: bold;
+          }
+        }
+
+        .grid-number {
+          display: grid;
+          grid-template-columns: repeat(4, 100px);
+          justify-items: center;
+          justify-content: center;
+          font-weight: bold;
+          font-size: 1.7rem;
+
+          & > * {
+            position: relative;
+
+            svg {
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              font-size: 3rem;
+              color: red;
+              opacity: 0.5;
+              animation: show2 1s linear infinite;
+            }
+          }
+        }
+      }
+
       .board {
         position: absolute;
         top: 0;
@@ -256,6 +343,14 @@ setTimeout(() => {
   to {
     opacity: 1;
     transform: translateY(0px);
+  }
+}
+@keyframes show2 {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.8;
   }
 }
 </style>
