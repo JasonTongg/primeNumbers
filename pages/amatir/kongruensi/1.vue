@@ -171,7 +171,7 @@ setTimeout(() => {
       width: 100%;
       height: 100%;
 
-      .content {
+
         position: absolute;
         left: 30px;
         top: 20px;
