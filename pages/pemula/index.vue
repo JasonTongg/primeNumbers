@@ -99,7 +99,9 @@ let startLearning = (data) => {
   color: $white;
 
   .quiz {
-    padding-block: 0.5rem;
+    h2{
+      font-size: 1.3rem;
+    }
   }
 
   .header {
@@ -114,6 +116,7 @@ let startLearning = (data) => {
 
     h2 {
       font-weight: normal;
+      font-size: 1.3rem;
     }
 
     a {

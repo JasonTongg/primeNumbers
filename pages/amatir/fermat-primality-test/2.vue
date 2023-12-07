@@ -29,6 +29,15 @@
       <div class="content-body">
         <img class="board" src="../../../assets/board.png" alt="" />
         <img class="teacher" src="../../../assets/teacher.png" alt="" />
+        <div class="content">
+          <p>
+            Fermat primality test menyatakan bahwa jika p adalah bilangan prima
+            dan a adalah bilangan bulat positif yang lebih dari 1 dan kurang
+            dari p, maka a pangkat p -1 kongruensi dengan 1 modulo p
+          </p>
+          <p class="square-root">a<span>p-1</span> &equiv; 1 (mod p)</p>
+          <p>1 &lt; a &lt; p-1</p>
+        </div>
       </div>
     </div>
   </div>
@@ -158,6 +167,33 @@ setTimeout(() => {
       position: relative;
       width: 100%;
       height: 100%;
+
+      .content {
+        position: absolute;
+        left: 30px;
+        top: 20px;
+        z-index: 2;
+        width: calc(100% - 60px);
+        height: 400px;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        justify-content: center;
+
+        & > * {
+          font-size: 1.2rem;
+          margin: 0;
+          text-align: center;
+        }
+
+        .square-root {
+          span {
+            position: relative;
+            top: -8px;
+            font-size: 0.9rem;
+          }
+        }
+      }
 
       .board {
         position: absolute;

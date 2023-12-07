@@ -3,12 +3,15 @@
     <div class="content-container">
       <div class="content-header">
         <div class="dot-container">
-          <div
+          <NuxtLink to="/amatir"
+            ><img src="../../assets/left-arrow.png" alt="back"
+          /></NuxtLink>
+          <!-- <div
             class="dot"
             v-for="(color, index) in dotColor"
             :key="index"
             :style="{ backgroundColor: color }"
-          ></div>
+          ></div> -->
         </div>
         <p>Score: {{ score }}/50</p>
         <p>0{{ minute }}:{{ second < 10 ? "0" + second : second }}</p>
@@ -97,7 +100,12 @@ let intervalTime = setInterval(() => {
   second.value -= 1;
   if (second.value < 0) {
     second.value = 59;
-    minute.value -= 0;
+    if (minute.value >= 1) {
+      minute.value -= 1;
+    } else {
+      showPopup.value = true;
+      clearInterval(intervalTime);
+    }
   }
 }, 1000);
 
@@ -198,6 +206,7 @@ let onSubmit = () => {
     answerCorrect();
     score.value += 10;
     if (score.value >= 50) {
+      store.updateQuizModule("amatir", 1, 1);
       showPopup.value = true;
       clearInterval(intervalTime);
     }
@@ -208,6 +217,14 @@ let onSubmit = () => {
       timeout: 3000,
     });
   } else {
+    if (minute.value >= 1) {
+      minute.value -= 1;
+    } else {
+      second.value = 0;
+      showPopup.value = true;
+      clearInterval(intervalTime);
+    }
+
     toast.add({
       title: "Your answer is Wrong!!",
       icon: "i-heroicons-x-circle",
@@ -252,13 +269,27 @@ let onSubmit = () => {
 
       .dot-container {
         display: flex;
-        gap: 0.7rem;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 0.8rem;
+        position: relative;
+        z-index: 2;
+
+        img {
+          width: 30px;
+          transition: all 0.3s ease-out;
+          cursor: pointer;
+
+          &:hover {
+            transform: translateX(-5px);
+          }
+        }
 
         .dot {
           width: 8px;
           height: 8px;
           border-radius: 50%;
-          opacity: 0.8;
+          opacity: 0.5;
         }
       }
     }

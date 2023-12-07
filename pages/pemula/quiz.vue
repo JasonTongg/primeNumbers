@@ -4,6 +4,9 @@
       <img src="../../assets/mountain.png" alt="" />
       <div class="header-container">
         <div class="dot-container">
+          <NuxtLink to="/pemula"
+            ><img src="../../assets/left-arrow.png" alt="back"
+          /></NuxtLink>
           <div
             class="dot"
             v-for="(color, index) in dots"
@@ -166,7 +169,7 @@ let checkAnswer = (number) => {
 
   if (random > 0.5) {
     score.value += 20;
-    if (score.value >= 100) {
+    if (score.value >= 1000) {
       clearInterval(intervalTime);
       showPopup.value = true;
       store.updateQuizModule("pemula", 1, 1);
@@ -342,8 +345,21 @@ let checkAnswer = (number) => {
       width: 100%;
       .dot-container {
         display: flex;
-        justify-content: center;
-        gap: 0.5rem;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 0.8rem;
+        position: relative;
+        z-index: 2;
+
+        img {
+          width: 30px;
+          transition: all 0.3s ease-out;
+          cursor: pointer;
+
+          &:hover {
+            transform: translateX(-5px);
+          }
+        }
 
         .dot {
           width: 10px;

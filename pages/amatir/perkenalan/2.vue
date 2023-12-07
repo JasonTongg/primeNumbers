@@ -29,6 +29,18 @@
       <div class="content-body">
         <img class="board" src="../../../assets/board.png" alt="" />
         <img class="teacher" src="../../../assets/teacher.png" alt="" />
+        <div class="content">
+          <img src="../../../assets/mahir-quiz-2.jpeg" alt="" />
+          <p>
+            Permainan ini diminta untuk menambahkan 1 angka dipaling belakang
+            supaya angka secara keseluruhan merupakan bilangan prima
+          </p>
+          <img src="../../../assets/mahir-quiz-3.jpeg" alt="" />
+          <p>
+            Setiap permainan akan diberikan target score yang perlu diselesaikan
+            serta batas waktu pengerjaan
+          </p>
+        </div>
       </div>
     </div>
   </div>
@@ -159,6 +171,29 @@ setTimeout(() => {
       width: 100%;
       height: 100%;
 
+      .content {
+        position: absolute;
+        left: 30px;
+        top: 20px;
+        z-index: 2;
+        width: calc(100% - 60px);
+        height: 400px;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        justify-content: center;
+
+        & > * {
+          font-size: 1.2rem;
+          margin: 0;
+          text-align: center;
+        }
+
+        img:first-of-type {
+          width: 80%;
+          margin-inline: auto;
+        }
+      }
       .board {
         position: absolute;
         top: 0;

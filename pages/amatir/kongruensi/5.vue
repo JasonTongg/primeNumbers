@@ -29,6 +29,25 @@
       <div class="content-body">
         <img class="board" src="../../../assets/board.png" alt="" />
         <img class="teacher" src="../../../assets/teacher.png" alt="" />
+        <div class="content">
+          <p>proposisi</p>
+          <ul>
+            <li>a &equiv; a (mod p)</li>
+            <li>Jika a &equiv; b (mod p) maka b &equiv; a (mod p)</li>
+            <li>
+              Jika a &equiv; b (mod p) dan b &equiv; c (mod p) maka c &equiv; a
+              (mod p)
+            </li>
+            <li>
+              Jika a &equiv; b (mod p) dan c &equiv; d (mod p) maka a &#8723; c
+              &equiv; b &#8723; d (mod p)
+            </li>
+            <li>
+              Jika a &equiv; b (mod p) dan c &equiv; d (mod p) maka ac &equiv;
+              bd (mod p)
+            </li>
+          </ul>
+        </div>
       </div>
       <div class="popup-backdrop" v-if="showPopup">
         <div class="popup-content">
@@ -114,6 +133,7 @@ setTimeout(() => {
         border-radius: 15px;
         overflow: hidden;
         animation: show 1s linear;
+        z-index: 3;
 
         h2,
         h3 {
@@ -230,6 +250,36 @@ setTimeout(() => {
       position: relative;
       width: 100%;
       height: 100%;
+
+      .content {
+        position: absolute;
+        left: 30px;
+        top: 20px;
+        z-index: 2;
+        width: calc(100% - 60px);
+        height: 400px;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        justify-content: center;
+        align-items: center;
+
+        & > * {
+          font-size: 1.2rem;
+          margin: 0;
+          text-align: center;
+        }
+
+        ul {
+          font-size: 1rem;
+          text-align: left;
+          width: 300px;
+          list-style: disc;
+          display: flex;
+          flex-direction: column;
+          gap: 0.3rem;
+        }
+      }
 
       .board {
         position: absolute;

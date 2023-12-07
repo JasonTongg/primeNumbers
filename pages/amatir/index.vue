@@ -4,7 +4,7 @@
       <NuxtLink to="/"
         ><img src="../../assets/left-arrow.png" alt="back"
       /></NuxtLink>
-      <h2>Amatir</h2>
+      <h2>Mahir</h2>
     </div>
     <div class="materi-container">
       <div
@@ -98,7 +98,9 @@ let startLearning = (data) => {
   color: $white;
 
   .quiz {
-    padding-block: 0.5rem;
+    h2{
+      font-size: 1.3rem;
+    }
   }
 
   .header {
@@ -113,6 +115,7 @@ let startLearning = (data) => {
 
     h2 {
       font-weight: normal;
+      font-size: 1.3rem;
     }
 
     a {
@@ -211,11 +214,12 @@ let startLearning = (data) => {
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 0.5rem;
+        gap: 0.2rem;
         flex-direction: column;
+        padding-block: .3rem;
 
         img {
-          width: 20px;
+          width: 17px;
         }
       }
     }

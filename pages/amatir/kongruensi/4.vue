@@ -29,6 +29,13 @@
       <div class="content-body">
         <img class="board" src="../../../assets/board.png" alt="" />
         <img class="teacher" src="../../../assets/teacher.png" alt="" />
+        <div class="content">
+          <p>
+            Tetapi jika kongruensi modulo antara 2 bilangan bulat yang
+            menyisakan sisa 0 seperti bilangan bulat 4 yang menyisakan 0 jika
+            dibagi 2 maka kita tulis n | m
+          </p>
+        </div>
       </div>
     </div>
   </div>
@@ -158,6 +165,25 @@ setTimeout(() => {
       position: relative;
       width: 100%;
       height: 100%;
+
+      .content {
+        position: absolute;
+        left: 30px;
+        top: 20px;
+        z-index: 2;
+        width: calc(100% - 60px);
+        height: 400px;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        justify-content: center;
+
+        & > * {
+          font-size: 1.2rem;
+          margin: 0;
+          text-align: center;
+        }
+      }
 
       .board {
         position: absolute;

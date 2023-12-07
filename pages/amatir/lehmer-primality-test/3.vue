@@ -29,6 +29,50 @@
       <div class="content-body">
         <img class="board" src="../../../assets/board.png" alt="" />
         <img class="teacher" src="../../../assets/teacher.png" alt="" />
+        <div class="content">
+          <p>Contoh:</p>
+          <p>
+            P = 13, a = 2 <br />
+            FPB(13,2) = 1, maka p dan a adalah relatif prima sehingga kita akan
+            menggunakan Teorema Lehmer
+          </p>
+          <p>
+            e &lt; p-1 <br />
+            e &lt; 12
+          </p>
+          <table>
+            <tr>
+              <td>e</td>
+              <td>2</td>
+              <td>3</td>
+              <td>4</td>
+              <td>5</td>
+              <td>6</td>
+              <td>7</td>
+              <td>8</td>
+              <td>9</td>
+              <td>10</td>
+              <td>11</td>
+            </tr>
+            <tr>
+              <td>a<span>e</span> mod 15</td>
+              <td>4</td>
+              <td>8</td>
+              <td>3</td>
+              <td>6</td>
+              <td>12</td>
+              <td>11</td>
+              <td>9</td>
+              <td>5</td>
+              <td>10</td>
+              <td>7</td>
+            </tr>
+          </table>
+          <p>
+            Dikarenakan tidak mendapakan hasil 1 dari e = 2 sampai 11 maka
+            bilangan bulat p dinyatakan sebagai bilangan prima.
+          </p>
+        </div>
       </div>
       <div class="popup-backdrop" v-if="showPopup">
         <div class="popup-content">
@@ -114,6 +158,7 @@ setTimeout(() => {
         border-radius: 15px;
         overflow: hidden;
         animation: show 1s linear;
+        z-index: 3;
 
         h2,
         h3 {
@@ -230,6 +275,40 @@ setTimeout(() => {
       position: relative;
       width: 100%;
       height: 100%;
+
+      .content {
+        position: absolute;
+        left: 30px;
+        top: 20px;
+        z-index: 2;
+        width: calc(100% - 60px);
+        height: 400px;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        justify-content: center;
+
+        & > * {
+          font-size: 1rem;
+          margin: 0;
+          text-align: center;
+        }
+
+        table {
+          font-size: 0.9rem;
+          border: 1px solid black;
+          td {
+            border: 1px solid black;
+            min-width: 20px;
+
+            span {
+              position: relative;
+              top: -5px;
+              font-size: 0.7rem;
+            }
+          }
+        }
+      }
 
       .board {
         position: absolute;

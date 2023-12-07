@@ -29,6 +29,25 @@
       <div class="content-body">
         <img class="board" src="../../../assets/board.png" alt="" />
         <img class="teacher" src="../../../assets/teacher.png" alt="" />
+        <div class="content">
+          <img
+            src="../../../assets/mahir-quiz-4.jpeg"
+            alt=""
+            style="width: 80%; margin-inline: auto"
+          />
+          <p>
+            Jika jawaban anda benar maka akan ada notifikasi tersebut dan akan
+            ditambahin score sebanyak 10
+          </p>
+          <p>
+            Jika jawaban anda salah maka tidak ada pengurangan score tetapi
+            waktu akan dikurangi 1 menit
+          </p>
+          <p>
+            Tantangan gagal jika waktu telah habis dan target score belum
+            tercapai
+          </p>
+        </div>
       </div>
       <div class="popup-backdrop" v-if="showPopup">
         <div class="popup-content">
@@ -61,7 +80,7 @@ store.updateQuizModule("amatir", 3, 0);
 store.showQuizSection("amatir", 1, true);
 
 let prev = () => {
-  router.push("/pemula/perkenalan/2");
+  router.push("/amatir/perkenalan/2");
 };
 let next = () => {
   showPopup.value = true;
@@ -102,6 +121,7 @@ setTimeout(() => {
       display: flex;
       align-items: center;
       justify-content: center;
+      z-index: 3;
 
       .popup-content {
         background-color: $primary;
@@ -114,6 +134,7 @@ setTimeout(() => {
         border-radius: 15px;
         overflow: hidden;
         animation: show 1s linear;
+        z-index: 4;
 
         h2,
         h3 {
@@ -230,6 +251,25 @@ setTimeout(() => {
       position: relative;
       width: 100%;
       height: 100%;
+
+      .content {
+        position: absolute;
+        left: 30px;
+        top: 20px;
+        z-index: 2;
+        width: calc(100% - 60px);
+        height: 400px;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        justify-content: center;
+
+        & > * {
+          font-size: 1.2rem;
+          margin: 0;
+          text-align: center;
+        }
+      }
 
       .board {
         position: absolute;

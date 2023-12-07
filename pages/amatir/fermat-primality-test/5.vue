@@ -29,6 +29,45 @@
       <div class="content-body">
         <img class="board" src="../../../assets/board.png" alt="" />
         <img class="teacher" src="../../../assets/teacher.png" alt="" />
+        <div class="content">
+          <p>Contoh:</p>
+          <p>
+            Jika p = 15, tabel berikut membuktikan bahwa hanya ada 2 nilai a
+            yang dinyatakan fermat liar
+          </p>
+          <table>
+            <tr>
+              <td>a</td>
+              <td>2</td>
+              <td>3</td>
+              <td>4</td>
+              <td>5</td>
+              <td>6</td>
+              <td>7</td>
+              <td>8</td>
+              <td>9</td>
+              <td>10</td>
+              <td>11</td>
+              <td>12</td>
+              <td>13</td>
+            </tr>
+            <tr>
+              <td>a<span>14</span> mod 15</td>
+              <td>4</td>
+              <td>9</td>
+              <td>1</td>
+              <td>10</td>
+              <td>6</td>
+              <td>4</td>
+              <td>4</td>
+              <td>6</td>
+              <td>10</td>
+              <td>1</td>
+              <td>9</td>
+              <td>4</td>
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
   </div>
@@ -158,6 +197,40 @@ setTimeout(() => {
       position: relative;
       width: 100%;
       height: 100%;
+
+      .content {
+        position: absolute;
+        left: 30px;
+        top: 20px;
+        z-index: 2;
+        width: calc(100% - 60px);
+        height: 400px;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        justify-content: center;
+
+        & > * {
+          font-size: 1.2rem;
+          margin: 0;
+          text-align: center;
+        }
+
+        table {
+          font-size: 0.9rem;
+          border: 1px solid black;
+          td {
+            border: 1px solid black;
+            min-width: 20px;
+
+            span {
+              position: relative;
+              top: -5px;
+              font-size: 0.7rem;
+            }
+          }
+        }
+      }
 
       .board {
         position: absolute;

@@ -111,6 +111,7 @@ setTimeout(() => {
       display: flex;
       align-items: center;
       justify-content: center;
+      z-index: 3;
 
       .popup-content {
         background-color: $primary;
@@ -123,7 +124,7 @@ setTimeout(() => {
         border-radius: 15px;
         overflow: hidden;
         animation: show 1s linear;
-        z-index: 3;
+        z-index: 4;
 
         h2,
         h3 {

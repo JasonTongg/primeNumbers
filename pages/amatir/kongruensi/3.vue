@@ -29,6 +29,13 @@
       <div class="content-body">
         <img class="board" src="../../../assets/board.png" alt="" />
         <img class="teacher" src="../../../assets/teacher.png" alt="" />
+        <div class="content">
+          <p>
+            Misalnya bilangan bulat 2, 9 dan 16, semuanya menyisakan sisa 2 bila
+            dibagi 7
+          </p>
+          <p>Sehingga kita tulis 16 = 9 = 2 (mod 7)</p>
+        </div>
       </div>
     </div>
   </div>
@@ -158,6 +165,25 @@ setTimeout(() => {
       position: relative;
       width: 100%;
       height: 100%;
+
+      .content {
+        position: absolute;
+        left: 30px;
+        top: 20px;
+        z-index: 2;
+        width: calc(100% - 60px);
+        height: 400px;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        justify-content: center;
+
+        & > * {
+          font-size: 1.2rem;
+          margin: 0;
+          text-align: center;
+        }
+      }
 
       .board {
         position: absolute;

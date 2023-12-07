@@ -29,6 +29,17 @@
       <div class="content-body">
         <img class="board" src="../../../assets/board.png" alt="" />
         <img class="teacher" src="../../../assets/teacher.png" alt="" />
+        <div class="content">
+          <p>
+            Dari faktor-faktor tersebut, kita dapat menyimpulkan bahwa FPB dari
+            12 dan 18 adalah 6 karena 6 adalah faktor terbesar yang sama dari
+            kedua bilangan tersebut
+          </p>
+          <p>
+            Dikarenakan 6 adalah FPB dari 12 dan 18 maka kita tulis FPB(12,18) =
+            6
+          </p>
+        </div>
       </div>
       <div class="popup-backdrop" v-if="showPopup">
         <div class="popup-content">
@@ -114,6 +125,7 @@ setTimeout(() => {
         border-radius: 15px;
         overflow: hidden;
         animation: show 1s linear;
+        z-index: 3;
 
         h2,
         h3 {
@@ -231,6 +243,24 @@ setTimeout(() => {
       width: 100%;
       height: 100%;
 
+      .content {
+        position: absolute;
+        left: 30px;
+        top: 20px;
+        z-index: 2;
+        width: calc(100% - 60px);
+        height: 400px;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        justify-content: center;
+
+        & > * {
+          font-size: 1.2rem;
+          margin: 0;
+          text-align: center;
+        }
+      }
       .board {
         position: absolute;
         top: 0;

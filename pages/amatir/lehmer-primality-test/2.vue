@@ -29,6 +29,19 @@
       <div class="content-body">
         <img class="board" src="../../../assets/board.png" alt="" />
         <img class="teacher" src="../../../assets/teacher.png" alt="" />
+        <div class="content">
+          <p>
+            Teorema lehmer menyatakan bahwa jika tidak ada bilangan bulat e
+            yaitu e &lt; p-1 dan memenuhi
+          </p>
+          <p>
+            a<span style="position: relative; top: -5px; font-size: 0.9rem"
+              >e</span
+            >
+            &equiv; 1 (mod p)
+          </p>
+          <p>Maka p adalah bilangan prima</p>
+        </div>
       </div>
     </div>
   </div>
@@ -158,6 +171,25 @@ setTimeout(() => {
       position: relative;
       width: 100%;
       height: 100%;
+
+      .content {
+        position: absolute;
+        left: 30px;
+        top: 20px;
+        z-index: 2;
+        width: calc(100% - 60px);
+        height: 400px;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        justify-content: center;
+
+        & > * {
+          font-size: 1.2rem;
+          margin: 0;
+          text-align: center;
+        }
+      }
 
       .board {
         position: absolute;

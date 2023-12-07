@@ -29,6 +29,15 @@
       <div class="content-body">
         <img class="board" src="../../../assets/board.png" alt="" />
         <img class="teacher" src="../../../assets/teacher.png" alt="" />
+        <div class="content">
+          <p>
+            Lehmer primality test merupakan convert dari fermat primality test.
+            bilangan bulat p dinyatakan bukan bilangan prima jika a dan p bukan
+            relatif prima dengan a yaitu bilangan bulat yang memenuhi 1 &lt; a
+            &lt; p-1. Tetapi jika p dan a adalah relatif prima maka kita dapat
+            menggunakan lehmer untuk menguji apakah p merupakan bilangan prima
+          </p>
+        </div>
       </div>
     </div>
   </div>
@@ -160,6 +169,25 @@ setTimeout(() => {
       position: relative;
       width: 100%;
       height: 100%;
+
+      .content {
+        position: absolute;
+        left: 30px;
+        top: 20px;
+        z-index: 2;
+        width: calc(100% - 60px);
+        height: 400px;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        justify-content: center;
+
+        & > * {
+          font-size: 1.2rem;
+          margin: 0;
+          text-align: center;
+        }
+      }
 
       .board {
         position: absolute;
