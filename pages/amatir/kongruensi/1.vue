@@ -171,39 +171,37 @@ setTimeout(() => {
       width: 100%;
       height: 100%;
 
+      position: absolute;
+      left: 30px;
+      top: 20px;
+      z-index: 2;
+      width: calc(100% - 60px);
+      height: 400px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      justify-content: center;
 
-        position: absolute;
-        left: 30px;
-        top: 20px;
-        z-index: 2;
-        width: calc(100% - 60px);
-        height: 400px;
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        justify-content: center;
-
-        & > * {
-          font-size: 1.2rem;
-          margin: 0;
-          text-align: center;
-        }
+      & > * {
+        font-size: 1.2rem;
+        margin: 0;
+        text-align: center;
       }
+    }
 
-      .board {
-        position: absolute;
-        top: 0;
-        left: 50%;
-        width: 95%;
-        transform: translateX(-50%);
-      }
+    .board {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 95%;
+      transform: translateX(-50%);
+    }
 
-      .teacher {
-        position: absolute;
-        right: 0;
-        bottom: 10%;
-        width: 20%;
-      }
+    .teacher {
+      position: absolute;
+      right: 0;
+      bottom: 10%;
+      width: 20%;
     }
   }
 }
