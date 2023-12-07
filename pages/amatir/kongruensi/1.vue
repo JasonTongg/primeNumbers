@@ -171,22 +171,24 @@ setTimeout(() => {
       width: 100%;
       height: 100%;
 
-      position: absolute;
-      left: 30px;
-      top: 20px;
-      z-index: 2;
-      width: calc(100% - 60px);
-      height: 400px;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      justify-content: center;
-      color: $black;
+      .content {
+        position: absolute;
+        left: 30px;
+        top: 20px;
+        z-index: 2;
+        width: calc(100% - 60px);
+        height: 400px;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        justify-content: center;
+        color: $black;
 
-      & > * {
-        font-size: 1.2rem;
-        margin: 0;
-        text-align: center;
+        & > * {
+          font-size: 1.2rem;
+          margin: 0;
+          text-align: center;
+        }
       }
     }
 
