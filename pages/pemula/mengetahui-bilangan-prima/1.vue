@@ -239,6 +239,7 @@ setTimeout(() => {
         flex-direction: column;
         gap: 0.5rem;
         justify-content: center;
+        color: $black;
 
         & > * {
           font-size: 1.5rem;

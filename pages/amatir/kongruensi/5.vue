@@ -263,6 +263,7 @@ setTimeout(() => {
         gap: 1rem;
         justify-content: center;
         align-items: center;
+        color: $black;
 
         & > * {
           font-size: 1.2rem;
