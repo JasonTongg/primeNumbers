@@ -228,7 +228,7 @@ let checkAnswer = (number) => {
 
     .popup-content {
       background-color: $primary;
-      color: white;
+      color: $white;
       width: 300px;
       display: flex;
       flex-direction: column;
@@ -272,7 +272,7 @@ let checkAnswer = (number) => {
           justify-content: center;
           align-items: center;
           text-decoration: none;
-          color: white;
+          color: $white;
           padding: 0.5rem 1rem;
           border-radius: 5px;
 

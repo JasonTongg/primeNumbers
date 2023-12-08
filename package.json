@@ -15,6 +15,7 @@
     "@pinia-plugin-persistedstate/nuxt": "^1.2.0",
     "nuxt": "^3.7.4",
     "nuxt-icon": "^0.6.6",
+    "nuxt-use-sound": "^1.0.8",
     "sass": "^1.68.0",
     "sass-loader": "10.1.1"
   },
@@ -22,6 +23,7 @@
     "@kyvg/vue3-notification": "^3.0.2",
     "@nuxt/ui": "^2.11.0",
     "@pinia/nuxt": "^0.4.11",
+    "@vueuse/sound": "^2.0.1",
     "esm": "^3.2.25",
     "pinia": "^2.1.6",
     "pinia-plugin-persistedstate": "^3.2.0",

@@ -149,7 +149,7 @@ setTimeout(() => {
 
       .popup-content {
         background-color: $primary;
-        color: white;
+        color: $white;
         width: 80%;
         display: flex;
         flex-direction: column;
@@ -185,7 +185,7 @@ setTimeout(() => {
             justify-content: center;
             align-items: center;
             text-decoration: none;
-            color: white;
+            color: $white;
             padding: 1rem;
 
             &:first-of-type {

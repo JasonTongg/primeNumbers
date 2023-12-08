@@ -1,26 +1,29 @@
 <template>
   <div class="footer-container">
-    <div
+    <NuxtLink
       class="img-container"
-      @click="changeActive(0)"
+      @click="changeActive2(0)"
       :class="active[0] === true && 'active'"
+      to="/pemula"
     >
-      <img src="../assets/setting.png" alt="" />
-    </div>
-    <div
+      <img src="../assets/pemula.png" alt="" />
+    </NuxtLink>
+    <NuxtLink
       class="img-container"
-      @click="changeActive(1)"
+      @click="changeActive2(1)"
       :class="active[1] === true && 'active'"
+      to="/"
     >
       <img src="../assets/menu.svg" alt="" />
-    </div>
-    <div
+    </NuxtLink>
+    <NuxtLink
       class="img-container"
-      @click="changeActive(2)"
+      @click="changeActive2(2)"
       :class="active[2] === true && 'active'"
+      to="/amatir"
     >
-      <img src="../assets/profile.png" alt="" />
-    </div>
+      <img src="../assets/mahir.png" alt="" />
+    </NuxtLink>
   </div>
 </template>
 
@@ -30,11 +33,19 @@ import { storeToRefs } from "pinia";
 
 const store = useCounterStore();
 let { mode } = storeToRefs(store);
-let active = ref([false, true, false]);
+const emit = defineEmits(["onChangeActive"]);
 
-let changeActive = (index) => {
-  active.value = [false, false, false];
-  active.value[index] = true;
+const props = defineProps({
+  active: {
+    type: Object,
+    required: true,
+  },
+});
+
+const active = computed(() => props.active);
+let changeActive2 = (idx) => {
+  console.log("tess");
+  emit("onChangeActive", idx);
 };
 </script>
 
@@ -68,6 +79,13 @@ let changeActive = (index) => {
 
     img {
       width: 40px;
+    }
+
+    &:first-of-type,
+    &:last-of-type {
+      img {
+        width: 60px;
+      }
     }
   }
 }

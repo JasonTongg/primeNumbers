@@ -60,7 +60,7 @@ let getRandom = () => {
   }
 
   .error-content {
-    color: white;
+    color: $white;
     display: flex;
     flex-direction: column;
     align-items: center;

@@ -381,7 +381,7 @@ let onSubmit = () => {
 
     .popup-content {
       background-color: $primary;
-      color: white;
+      color: $white;
       width: 300px;
       display: flex;
       flex-direction: column;

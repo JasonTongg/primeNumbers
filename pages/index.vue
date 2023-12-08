@@ -6,7 +6,7 @@
       :key="i"
       :style="{ top: getRandom() + '%', left: getRandom() + '%' }"
     ></div>
-    <img src="../assets/dark-logo.png" alt="logo" v-if="mode === true" />
+    <img src="../assets/logo-dark.png" alt="logo" v-if="mode === true" />
     <img src="../assets/logo.png" alt="logo" v-else />
     <NuxtLink to="pemula">Pemula</NuxtLink>
     <NuxtLink to="amatir">Mahir</NuxtLink>
@@ -49,7 +49,7 @@ let getRandom = () => {
     left: 50%;
     transform: translateX(-50%);
     top: 50px;
-    width: 200px;
+    width: 300px;
   }
 
   a {
@@ -68,14 +68,15 @@ let getRandom = () => {
     text-decoration: none;
     text-align: center;
     transition: all 0.2s linear;
+    transform: translateY(50px);
 
     &:hover {
-      transform: translateY(-6px);
+      transform: translateY(44px);
       box-shadow: 0px 4px 8px $purple;
     }
 
     &:active {
-      transform: translateY(-3px);
+      transform: translateY(47px);
       box-shadow: 0px 2px 4px $purple;
     }
   }

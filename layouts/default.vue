@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-container">
+  <div class="layout-container" @click="play">
     <div class="color-mode">
       <input type="checkbox" id="mode" v-model="mode" />
       <label for="mode" @click="changeColor">
@@ -20,7 +20,7 @@
     </div>
     <div class="content-container">
       <slot />
-      <AppFooter></AppFooter>
+      <AppFooter :active="active" @onChangeActive="changeActive"></AppFooter>
     </div>
     <div class="snow">
       <div
@@ -36,10 +36,12 @@
 <script setup>
 import { useCounterStore } from "../store/index";
 import { storeToRefs } from "pinia";
+import { useSound } from "@vueuse/sound";
+import audio from "../assets/audio.mp3";
 
 const store = useCounterStore();
 let { mode } = storeToRefs(store);
-
+const { play } = useSound(audio, { volume: 0.2 });
 let getRandom = () => {
   return Math.random() * 95;
 };
@@ -64,9 +66,41 @@ let changeColor = () => {
     document.documentElement.style.setProperty("--gray", "rgb(140, 140, 140)");
   }
 };
+
+onMounted(() => {
+  if (mode.value === true) {
+    document.documentElement.style.setProperty("--primary", "#d8cfd0");
+    document.documentElement.style.setProperty("--pastelPrimary", "#697184");
+    document.documentElement.style.setProperty("--purple", "#b1a6a4");
+    document.documentElement.style.setProperty("--white", "#ffffff");
+    document.documentElement.style.setProperty("--white2", "#000000");
+    document.documentElement.style.setProperty("--darkBg", "#f2f1ef");
+    document.documentElement.style.setProperty("--gray", "#737373");
+  }
+});
+
+let active = ref([false, true, false]);
+let router = useRouter();
+if (router.currentRoute._value.fullPath.includes("pemula")) {
+  active.value = [true, false, false];
+} else if (router.currentRoute._value.fullPath.includes("amatir")) {
+  active.value = [false, false, true];
+} else {
+  active.value = [false, true, false];
+}
+
+let changeActive = (index) => {
+  active.value = [false, false, false];
+  active.value[index] = true;
+};
 </script>
 
 <style lang="scss" scoped>
+button {
+  width: 100px;
+  height: 100px;
+  background: red;
+}
 .layout-container {
   display: grid;
   align-items: center;
