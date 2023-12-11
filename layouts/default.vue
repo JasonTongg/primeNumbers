@@ -1,5 +1,15 @@
 <template>
-  <div class="layout-container" @click="play">
+  <div
+    class="layout-container"
+    @click="
+      () => {
+        if (isPlaying === false) {
+          play();
+        }
+        isPlaying = true;
+      }
+    "
+  >
     <div class="color-mode">
       <input type="checkbox" id="mode" v-model="mode" />
       <label for="mode" @click="changeColor">
@@ -41,7 +51,7 @@ import audio from "../assets/audio.mp3";
 
 const store = useCounterStore();
 let { mode } = storeToRefs(store);
-const { play } = useSound(audio, { volume: 0.2 });
+const { play, isPlaying } = useSound(audio, { volume: 0.2 });
 let getRandom = () => {
   return Math.random() * 95;
 };

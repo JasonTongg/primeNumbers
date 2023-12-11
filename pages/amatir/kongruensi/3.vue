@@ -35,6 +35,60 @@
             dibagi 7
           </p>
           <p>Sehingga kita tulis 16 = 9 = 2 (mod 7)</p>
+          <div class="clock">
+            <div
+              class="clock-arrow"
+              :style="{
+                transform: `translate(-50%, 0) rotateZ(${
+                  (360 * totalModulo) / totalClockNumber
+                }deg)`,
+              }"
+            ></div>
+            <div
+              class="clock-number"
+              v-for="(number, index) in totalClockNumber"
+              :key="index"
+              :style="{
+                transform: `translate(-50%, 0) rotateZ(${
+                  (360 * number) / totalClockNumber
+                }deg)`,
+              }"
+            >
+              <p
+                :style="{
+                  transform: `rotateZ(${
+                    ((360 * number) / totalClockNumber) * -1
+                  }deg)`,
+                }"
+              >
+                {{ number }}
+              </p>
+            </div>
+          </div>
+          <div class="description">
+            <div class="moduloInput">
+              <input type="number" v-model="totalClockNumber" />
+              <p>MOD</p>
+              <input type="number" v-model="totalModulo" />
+              <p>
+                = &nbsp;{{
+                  isNaN(totalClockNumber % totalModulo)
+                    ? 0
+                    : totalClockNumber % totalModulo
+                }}
+              </p>
+            </div>
+            <p>atau</p>
+            <p>
+              {{ totalClockNumber }} &nbsp; = &nbsp;
+              {{
+                isNaN(totalClockNumber % totalModulo)
+                  ? 0
+                  : totalClockNumber % totalModulo
+              }}
+              &nbsp; (mod {{ totalModulo }})
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -51,6 +105,8 @@ const right = ref(null);
 let { amatirModule, countTime } = storeToRefs(store);
 let countValue = ref(countTime.value);
 let data = amatirModule.value.materi[2];
+let totalClockNumber = ref(6);
+let totalModulo = ref(0);
 
 if (data.progress !== data.end) {
   store.updateAmatirModule(3, 2);
@@ -183,6 +239,65 @@ setTimeout(() => {
           font-size: 1.2rem;
           margin: 0;
           text-align: center;
+        }
+
+        .moduloInput {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 1rem;
+
+          input {
+            width: 60px;
+            text-align: center;
+          }
+        }
+
+        .description {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+
+          p {
+            margin: 0;
+          }
+        }
+
+        .clock {
+          background-color: black;
+          color: white;
+          width: 150px;
+          height: 150px;
+          border-radius: 50%;
+          position: relative;
+          margin-inline: auto;
+
+          .clock-arrow {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform-origin: center bottom;
+            width: 5px;
+            height: 30%;
+            background-color: white;
+            transition: all 1s linear;
+            transform: translate(-50%, 0) rotateZ(0deg);
+          }
+
+          .clock-number {
+            position: absolute;
+            top: 5%;
+            left: 50%;
+            transform-origin: center bottom;
+            width: 5px;
+            height: 45%;
+
+            p {
+              margin: 0;
+              font-size: 0.8rem;
+            }
+          }
         }
       }
 

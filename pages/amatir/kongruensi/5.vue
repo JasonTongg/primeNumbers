@@ -80,7 +80,7 @@ store.updateAmatirModule(5, 2);
 store.showSection("amatir", 3, true);
 
 let prev = () => {
-  router.push("/pemula/faktor-persekutuan-terbesar/4");
+  router.push("/amatir/kongruensi/4");
 };
 let next = () => {
   showPopup.value = true;
