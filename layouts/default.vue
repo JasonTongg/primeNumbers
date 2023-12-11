@@ -5,6 +5,7 @@
       () => {
         if (isPlaying === false) {
           play();
+          startPlay();
         }
         isPlaying = true;
       }
@@ -52,6 +53,13 @@ import audio from "../assets/audio.mp3";
 const store = useCounterStore();
 let { mode } = storeToRefs(store);
 const { play, isPlaying } = useSound(audio, { volume: 0.2 });
+
+let startPlay = () => {
+  setInterval(() => {
+    play();
+  }, 80000);
+};
+
 let getRandom = () => {
   return Math.random() * 95;
 };
