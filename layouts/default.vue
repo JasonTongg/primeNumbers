@@ -441,11 +441,13 @@ let changeActive = (index) => {
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.5);
+    color: $black;
     .tutorial-content {
       display: grid;
       grid-template-columns: 100px 1fr;
       width: 1000px;
       min-height: 80vh;
+      color: $black;
 
       .content-left {
         width: 100%;
@@ -454,6 +456,7 @@ let changeActive = (index) => {
         flex-direction: column;
         align-items: flex-end;
         justify-content: flex-start;
+        color: $black;
 
         & > * {
           width: 100%;
@@ -489,6 +492,7 @@ let changeActive = (index) => {
         background-color: $white;
         position: relative;
         height: 100%;
+        color: $black;
         .content {
           height: 100%;
           display: flex;
