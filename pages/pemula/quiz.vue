@@ -157,6 +157,9 @@ function isPrime(n, k) {
 let checkPrima = (n) => {
   let p = parseInt(n);
   let a = Math.round(Math.random() * (p - 2) + 2);
+  if (p === 3 || p === 2) {
+    return true;
+  }
   if (__gcd(p, a) !== 1) {
     return false;
   } else {

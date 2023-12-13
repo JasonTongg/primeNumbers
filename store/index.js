@@ -20,6 +20,8 @@ export const useCounterStore = defineStore(
   () => {
     let mode = ref(false);
     let countTime = ref(3);
+    let tutorial = ref(false);
+
     let pemulaModule = ref({
       materi: [
         {
@@ -118,6 +120,11 @@ export const useCounterStore = defineStore(
     let updatePemulaBilanganPrima = (newProgress) => {
       pemulaModule.value.materi[0].progress = newProgress;
     };
+
+    let changeTutorial = () => {
+      tutorial.value = true;
+    };
+
     let updatePemulaMengetahuiBilanganPrima = (newProgress) => {
       pemulaModule.value.materi[1].progress = newProgress;
     };
@@ -161,6 +168,8 @@ export const useCounterStore = defineStore(
       updateAmatirModule,
       updateQuizModule,
       amatirQuizQuestion,
+      tutorial,
+      changeTutorial,
     };
   },
   { persist: true }

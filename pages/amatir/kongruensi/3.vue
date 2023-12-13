@@ -40,7 +40,7 @@
               class="clock-arrow"
               :style="{
                 transform: `translate(-50%, 0) rotateZ(${
-                  (360 * totalModulo) / totalClockNumber
+                  (360 * (totalClockNumber % totalModulo)) / totalClockNumber
                 }deg)`,
               }"
             ></div>
@@ -61,7 +61,13 @@
                   }deg)`,
                 }"
               >
-                {{ number }}
+                {{
+                  number === totalClockNumber
+                    ? totalModulo > totalClockNumber
+                      ? number
+                      : 0
+                    : number
+                }}
               </p>
             </div>
           </div>
@@ -251,6 +257,7 @@ setTimeout(() => {
             width: 60px;
             text-align: center;
             color: $white;
+            background-color: $black;
 
             &::-webkit-outer-spin-button,
             &::-webkit-inner-spin-button {
