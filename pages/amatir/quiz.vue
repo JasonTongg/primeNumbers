@@ -73,6 +73,88 @@
         </div>
       </div>
     </div>
+    <div class="popup-backdrop" v-if="showPopupBantuan">
+      <div class="popup-content">
+        <Icon name="ph:question-fill" color="orange" class="iconCheck" />
+        <h2>Butuh bantuan??</h2>
+        <h3 style="text-align: center">
+          Anda telah melakukan kesalahan sebanyak 3 kali...
+        </h3>
+        <div class="buttons">
+          <button
+            @click="
+              () => {
+                showPopupBantuan = false;
+                showPopupBantuan2 = true;
+                totalWrong = 0;
+              }
+            "
+          >
+            Bantuan
+          </button>
+          <button
+            @click="
+              () => {
+                showPopupBantuan = false;
+                totalWrong = 0;
+              }
+            "
+          >
+            Tidak
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="popup-backdrop bantuan" v-if="showPopupBantuan2 === true">
+      <div class="popup-content">
+        <Icon name="ph:question-fill" color="orange" class="iconCheck" />
+        <h2>Bantuan</h2>
+        <div class="bantuan-container">
+          <h2>
+            Jawabannya adalah
+            <span style="font-size: 3rem"
+              ><b>{{ jawabanBenar }}</b></span
+            >
+          </h2>
+          <p>
+            Jika diselesaikan menggunakan <b>lehmer primality test</b> dengan
+            <b>a=2</b>, maka
+          </p>
+          <table>
+            <tr>
+              <td>e</td>
+              <td v-for="(number, index) in 10" :key="index">
+                {{ number + 1 }}
+              </td>
+              <td>...</td>
+              <td v-for="(number, index) in 10" :key="index">
+                {{ number + jawabanBenar - 12 }}
+              </td>
+            </tr>
+            <tr>
+              <td>a<span>e</span> mod {{ jawabanBenar }}</td>
+              <td v-for="(number, index) in 10" :key="index">
+                {{ calculateLehmer(number + 1, 2, jawabanBenar) }}
+              </td>
+              <td>...</td>
+              <td v-for="(number, index) in 10" :key="index">
+                {{
+                  calculateLehmer(number + jawabanBenar - 12, 2, jawabanBenar)
+                }}
+              </td>
+            </tr>
+          </table>
+          <p>
+            Dikarenakan tidak mendapakan hasil 1 dari e = 2 sampai
+            {{ jawabanBenar - 2 }} maka bilangan bulat p dinyatakan sebagai
+            bilangan prima.
+          </p>
+        </div>
+        <div class="buttons">
+          <button @click="showPopupBantuan2 = false">Tutup</button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -83,10 +165,7 @@ let questionLength = ref(0);
 let toast = useToast();
 let snowballSize = ref(70);
 let snowballPosition = ref(20);
-let totalStep = ref(10);
-let step = ref(0);
 let manPosition = ref(snowballPosition.value - 20);
-let dotColor = ["red", "yellow", "blue"];
 let minute = ref(9);
 let second = ref(59);
 let score = ref(0);
@@ -95,6 +174,10 @@ let submitDisabled = ref(false);
 let inputValue = ref();
 let showPopup = ref(false);
 let showPopupFail = ref(false);
+let showPopupBantuan2 = ref(false);
+let showPopupBantuan = ref(false);
+let totalWrong = ref(0);
+let jawabanBenar = ref(0);
 
 let intervalTime = setInterval(() => {
   second.value -= 1;
@@ -137,6 +220,19 @@ let onChangeInput = (e) => {
     submitDisabled.value = false;
   }
 };
+
+function calculateLehmer(e, a, p) {
+  let result = Math.pow(a, e) % p;
+  if (isNaN(result)) {
+    let c = 1;
+    for (let i = 0; i < e; i++) {
+      c *= a;
+      c %= p;
+    }
+    return c;
+  }
+  return result;
+}
 
 function __gcd(x, y) {
   if (typeof x !== "number" || typeof y !== "number") return false;
@@ -192,6 +288,7 @@ let initialValue = () => {
   );
   let question = store.amatirQuizQuestion[questionLength.value][questionIndex];
   console.log(question);
+  jawabanBenar.value = question;
   tempResult.value = Math.floor(question / 10);
 };
 
@@ -216,12 +313,13 @@ let onSubmit = () => {
       color: "primary",
       timeout: 3000,
     });
+    totalWrong.value = 0;
   } else {
     if (minute.value >= 1) {
       minute.value -= 1;
     } else {
       second.value = 0;
-      showPopup.value = true;
+      showPopupFail.value = true;
       clearInterval(intervalTime);
     }
 
@@ -231,6 +329,11 @@ let onSubmit = () => {
       color: "red",
       timeout: 3000,
     });
+    totalWrong.value += 1;
+    if (totalWrong.value >= 3) {
+      showPopupBantuan.value = true;
+      totalWrong.value = 0;
+    }
   }
   inputValue.value = "";
 };
@@ -367,6 +470,37 @@ let onSubmit = () => {
     }
   }
 
+  .popup-backdrop.bantuan {
+    .popup-content {
+      width: 1000px;
+      .bantuan-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      table {
+        font-size: 0.9rem;
+        border: 1px solid $white;
+
+        td {
+          border: 1px solid $white;
+          text-align: center;
+          min-width: 20px;
+          padding-inline: 0.3rem;
+
+          span {
+            position: relative;
+            top: -5px;
+            font-size: 0.7rem;
+          }
+        }
+      }
+    }
+  }
   .popup-backdrop {
     position: fixed;
     top: 0;
@@ -419,7 +553,8 @@ let onSubmit = () => {
         justify-content: center;
         gap: 1rem;
 
-        a {
+        a,
+        button {
           width: 100px;
           display: flex;
           justify-content: center;

@@ -61,6 +61,96 @@
         </div>
       </div>
     </div>
+    <div class="popup-backdrop" v-if="showPopupBantuan">
+      <div class="popup-content">
+        <Icon name="ph:question-fill" color="orange" class="iconCheck" />
+        <h2>Butuh bantuan??</h2>
+        <h3 style="text-align: center">
+          Anda telah melakukan kesalahan sebanyak 3 kali...
+        </h3>
+        <div class="buttons">
+          <button
+            @click="
+              () => {
+                showPopupBantuan = false;
+                showPopupBantuan2 = true;
+                totalWrong = 0;
+              }
+            "
+          >
+            Bantuan
+          </button>
+          <button
+            @click="
+              () => {
+                showPopupBantuan = false;
+                totalWrong = 0;
+              }
+            "
+          >
+            Tidak
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="popup-backdrop bantuan" v-if="showPopupBantuan2">
+      <div class="popup-content">
+        <Icon name="ph:question-fill" color="orange" class="iconCheck" />
+        <h2>Bantuan</h2>
+        <div class="bantuan-container">
+          <div
+            v-for="(number, index) in randomNumber"
+            class="number-container"
+            :key="index"
+          >
+            <h2>{{ number }}</h2>
+            <p
+              v-for="(factor, index) in factors(number)"
+              :key="index"
+              v-if="factors(number).length === 2"
+            >
+              {{ number }}:{{ factor }}={{ number / factor }}
+            </p>
+            <p
+              v-for="(text, index2) in [
+                `${number}:${factors(number)[0]}=${
+                  number / factors(number)[0]
+                }`,
+                '...',
+                `${number}:${factors(number)[factors(number).length - 1]}=${
+                  number / factors(number)[factors(number).length - 1]
+                }`,
+              ]"
+              :key="index2"
+              v-else
+            >
+              {{ text }}
+            </p>
+            <p style="margin-top: 0.5rem">
+              {{ factors(number).length }} faktor
+            </p>
+          </div>
+        </div>
+        <p style="text-align: center; margin-top: 0.5rem">
+          Perlu diingatt bahwa <b>bilangan prima</b> adalah
+          <b>bilangan asli</b> yang memiliki <b>dua</b> faktor yaitu
+          <b>1</b> dan
+          <b>bilangan itu sendiri</b>
+        </p>
+        <p>
+          Sehingga, bilangan prima pada pilihan diatas adalah
+          <span
+            style="font-size: 1.5rem; margin-right: 0.2rem"
+            v-for="(number, index) in randomNumber"
+            :key="index"
+            ><b v-if="factors(number).length === 2">{{ number }},</b></span
+          >
+        </p>
+        <div class="buttons">
+          <button @click="showPopupBantuan2 = false">Tutup</button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -78,6 +168,10 @@ let second = ref(59);
 let score = ref(0);
 let showPopup = ref(false);
 let showPopupFail = ref(false);
+let showPopupBantuan = ref(false);
+let showPopupBantuan2 = ref(false);
+let totalWrong = ref(0);
+let correctAnswer = ref(0);
 
 let generateNumber = () => {
   let i = 0;
@@ -85,20 +179,42 @@ let generateNumber = () => {
   for (i = 0; i < 8; i++) {
     randomNumber.value.push(Math.round(Math.random() * 98) + 1);
   }
-  // do {
   let randomPosition = Math.round(Math.random() * 7);
   let randomPrime = Math.round(Math.random() * dua.length);
   randomNumber.value[randomPosition] =
     dua[randomPrime - 1 < 0 ? 0 : randomPrime - 1];
-  console.log(
-    dua[randomPrime - 1 < 0 ? 0 : randomPrime - 1],
-    randomPrime,
-    randomPosition
-  );
-  // } while (cek === false);
+  correctAnswer.value = randomNumber.value[randomPosition];
 };
 
 generateNumber();
+
+function factors(n) {
+  // Initialize an empty array num_factors to store the factors
+  var num_factors = [],
+    i;
+
+  // Iterate through numbers from 1 to the square root of n to find factors
+  for (i = 1; i <= Math.floor(Math.sqrt(n)); i += 1) {
+    // Check if i is a factor of n
+    if (n % i === 0) {
+      // Push i to the factors array
+      num_factors.push(i);
+
+      // Check if n divided by i is not equal to i (avoid duplication for perfect squares)
+      if (n / i !== i)
+        // Push n divided by i to the factors array
+        num_factors.push(n / i);
+    }
+  }
+
+  // Sort the factors array in ascending order using a numeric sort
+  num_factors.sort(function (x, y) {
+    return x - y;
+  });
+
+  // Return the sorted array of factors
+  return num_factors;
+}
 
 let intervalTime = setInterval(() => {
   second.value -= 1;
@@ -178,6 +294,7 @@ let checkAnswer = (number) => {
       store.updateQuizModule("pemula", 1, 1);
     } else {
       generateNumber();
+      totalWrong.value = 0;
       toast.add({
         title: "Your answer is Correct!!",
         icon: "i-heroicons-check-circle",
@@ -187,12 +304,17 @@ let checkAnswer = (number) => {
     }
   } else {
     score.value -= 10;
+    totalWrong.value += 1;
     toast.add({
       title: "Your answer is Wrong!!",
       icon: "i-heroicons-x-circle",
       color: "red",
       timeout: 3000,
     });
+
+    if (totalWrong.value >= 3) {
+      showPopupBantuan.value = true;
+    }
   }
 };
 </script>
@@ -215,6 +337,33 @@ let checkAnswer = (number) => {
     height: 100%;
     border-radius: 10px;
     background-color: $pastelPrimary;
+  }
+
+  .popup-backdrop.bantuan {
+    .popup-content {
+      width: 1000px;
+      .bantuan-container {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+
+        .number-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: flex-start;
+          padding: 0.5rem;
+          border: 2px dashed $white;
+          min-width: 100px;
+
+          &.active {
+            border: 2px dashed green;
+          }
+        }
+      }
+    }
   }
 
   .popup-backdrop {
@@ -269,7 +418,8 @@ let checkAnswer = (number) => {
         justify-content: center;
         gap: 1rem;
 
-        a {
+        a,
+        button {
           width: 100px;
           display: flex;
           justify-content: center;

@@ -21,6 +21,55 @@
         </div>
       </label>
     </div>
+    <div class="side-modal-button" @click="showSide = !showSide">
+      <Icon
+        :name="`${
+          showSide === false ? 'mingcute:left-line' : 'mingcute:right-line'
+        }`"
+        :color="mode === false ? 'white' : 'black'"
+      ></Icon>
+    </div>
+    <div class="side-modal-container" v-if="showSide">
+      <div class="side-left-content">
+        <div
+          @click="sideActive = [true, false, false, false, false]"
+          :class="{ active: sideActive[0] === true }"
+        >
+          Faktor
+        </div>
+        <div
+          @click="sideActive = [false, true, false, false, false]"
+          :class="{ active: sideActive[1] === true }"
+        >
+          Prima
+        </div>
+        <div
+          @click="sideActive = [false, false, true, false, false]"
+          :class="{ active: sideActive[2] === true }"
+        >
+          Relatif Prima
+        </div>
+        <div
+          @click="sideActive = [false, false, false, true, false]"
+          :class="{ active: sideActive[3] === true }"
+        >
+          Fermat Test
+        </div>
+        <div
+          @click="sideActive = [false, false, false, false, true]"
+          :class="{ active: sideActive[4] === true }"
+        >
+          Lehmer Test
+        </div>
+      </div>
+      <div class="side-right-content">
+        <div v-if="sideActive[0] === true">Faktor</div>
+        <div v-if="sideActive[1] === true">Prima</div>
+        <div v-if="sideActive[2] === true">Relatif divrima</div>
+        <div v-if="sideActive[3] === true">Fermat Test</div>
+        <div v-if="sideActive[4] === true">Lehmer Test</div>
+      </div>
+    </div>
     <div class="tutorial-button" @click="showTutorial = true">
       <Icon
         name="ph:question-bold"
@@ -62,8 +111,8 @@
                 Prime Numbers merupakan media ajar yang difokuskan untuk edukasi
                 bilangan prima <br /><br />
                 pengguna dapat memulai dengan memiliki <b>pemula</b> atau
-                <b>amatir</b>. Pemula dikhususkan untuk siswa SD sedangkan
-                amatir untuk siswa SMP hingga Kuliah. <br /><br />
+                <b>mahir</b>. Pemula dikhususkan untuk siswa SD sedangkan mahir
+                untuk siswa SMP hingga Kuliah. <br /><br />
                 Pengguna bisa langsung klik tombol <b>pemula</b> atau
                 <b>mahir</b> di tengah tengah layar atau tombol yang ada
                 dibagian bawah.
@@ -306,6 +355,8 @@ let tutorialButtonActive = ref([true, false, false]);
 let showTutorial = ref(tutorial.value === false ? true : false);
 let tutorialSlide = ref(1);
 let showButton = ref([true, false]);
+let showSide = ref(false);
+let sideActive = ref([true, false, false, false, false]);
 
 let startPlay = () => {
   setInterval(() => {
@@ -430,6 +481,56 @@ let changeActive = (index) => {
   position: relative;
   overflow: hidden;
 
+  .side-modal-container {
+    position: fixed;
+    top: 50%;
+    right: 100px;
+    transform: translateY(-50%);
+    width: 370px;
+    height: 90vh;
+    z-index: 5;
+    animation: showright 0.5s linear;
+    display: grid;
+    grid-template-columns: 120px 1fr;
+
+    & > * {
+      width: 100%;
+    }
+    .side-left-content {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      justify-content: flex-start;
+      align-items: flex-end;
+      width: 100%;
+
+      div {
+        margin-right: 10px;
+        background-color: $pastelPrimary;
+        width: 100%;
+        padding-block: 0.5rem;
+        text-align: end;
+        padding-right: 10px;
+        color: $white;
+        clip-path: polygon(8% 0, 100% 0%, 100% 100%, 8% 100%, 0% 50%);
+        transition: all 0.2s linear;
+
+        &.active {
+          background-color: $primary;
+          height: 60px;
+          width: 120%;
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          font-size: 1.2rem;
+        }
+      }
+    }
+
+    .side-right-content {
+      background-color: $white;
+    }
+  }
   .tutorial-backdrop {
     position: fixed;
     top: 0px;
@@ -593,6 +694,21 @@ let changeActive = (index) => {
       font-size: 2.5rem;
     }
   }
+
+  .side-modal-button {
+    position: absolute;
+    top: 260px;
+    right: 15px;
+    z-index: 300;
+    cursor: pointer;
+    border: 2px solid $white;
+    padding-block: 1.5rem;
+    border-radius: 50px;
+
+    svg {
+      font-size: 2.5rem;
+    }
+  }
   .color-mode {
     position: absolute;
     top: 50px;
@@ -670,6 +786,16 @@ let changeActive = (index) => {
       background-color: $gray;
       border-radius: 100px;
     }
+  }
+}
+@keyframes showright {
+  from {
+    transform: translate(50px, -50%);
+    opacity: 0;
+  }
+  to {
+    transform: translate(0px, -50%);
+    opacity: 1;
   }
 }
 </style>

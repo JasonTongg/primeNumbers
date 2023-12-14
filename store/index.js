@@ -117,6 +117,8 @@ export const useCounterStore = defineStore(
       limabelas,
     ];
 
+    let sideContent = ref("bilangan prima");
+
     let updatePemulaBilanganPrima = (newProgress) => {
       pemulaModule.value.materi[0].progress = newProgress;
     };
