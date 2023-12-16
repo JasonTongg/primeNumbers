@@ -795,7 +795,7 @@ let changeActive = (index) => {
     transform: translateY(-50%);
     width: 370px;
     height: 90vh;
-    z-index: 5;
+    z-index: 30;
     animation: showright 0.5s linear;
     display: grid;
     grid-template-columns: 120px 1fr;
@@ -839,6 +839,7 @@ let changeActive = (index) => {
       max-height: 90vh;
       overflow-y: auto;
       width: 280px;
+      color: $black;
 
       &::-webkit-scrollbar {
         display: none;
