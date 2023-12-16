@@ -117,7 +117,9 @@ export const useCounterStore = defineStore(
       limabelas,
     ];
 
-    let sideContent = ref("bilangan prima");
+    let showSideButton = ref(true);
+    let sideActive = ref([true, false, false, false, false]);
+    let showSide = ref(false);
 
     let updatePemulaBilanganPrima = (newProgress) => {
       pemulaModule.value.materi[0].progress = newProgress;
@@ -172,6 +174,9 @@ export const useCounterStore = defineStore(
       amatirQuizQuestion,
       tutorial,
       changeTutorial,
+      showSideButton,
+      sideActive,
+      showSide,
     };
   },
   { persist: true }

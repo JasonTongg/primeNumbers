@@ -54,6 +54,10 @@ let { amatirModule, countTime } = storeToRefs(store);
 let countValue = ref(countTime.value);
 let data = amatirModule.value.materi[4];
 
+store.sideActive = [false, false, false, false, true];
+store.showSideButton = true;
+store.showSide = true;
+
 if (data.progress !== data.end) {
   store.updateAmatirModule(1, 4);
 }

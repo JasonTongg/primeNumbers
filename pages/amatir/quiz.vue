@@ -179,6 +179,9 @@ let showPopupBantuan = ref(false);
 let totalWrong = ref(0);
 let jawabanBenar = ref(0);
 
+store.showSideButton = false;
+store.showSide = false;
+
 let intervalTime = setInterval(() => {
   second.value -= 1;
   if (second.value < 0) {

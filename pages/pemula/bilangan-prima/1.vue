@@ -52,6 +52,10 @@ let { pemulaModule, countTime } = storeToRefs(store);
 let countValue = ref(countTime.value);
 let data = pemulaModule.value.materi[0];
 
+store.sideActive = [true, false, false, false, false];
+store.showSideButton = true;
+store.showSide = true;
+
 if (data.progress !== data.end) {
   store.updatePemulaBilanganPrima(1);
 }

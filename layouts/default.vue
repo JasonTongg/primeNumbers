@@ -21,7 +21,11 @@
         </div>
       </label>
     </div>
-    <div class="side-modal-button" @click="showSide = !showSide">
+    <div
+      class="side-modal-button"
+      @click="store.showSide = !store.showSide"
+      v-if="showSideButton"
+    >
       <Icon
         :name="`${
           showSide === false ? 'mingcute:left-line' : 'mingcute:right-line'
@@ -32,42 +36,282 @@
     <div class="side-modal-container" v-if="showSide">
       <div class="side-left-content">
         <div
-          @click="sideActive = [true, false, false, false, false]"
+          @click="store.sideActive = [true, false, false, false, false]"
           :class="{ active: sideActive[0] === true }"
         >
           Faktor
         </div>
         <div
-          @click="sideActive = [false, true, false, false, false]"
+          @click="store.sideActive = [false, true, false, false, false]"
           :class="{ active: sideActive[1] === true }"
         >
           Prima
         </div>
         <div
-          @click="sideActive = [false, false, true, false, false]"
+          @click="store.sideActive = [false, false, true, false, false]"
           :class="{ active: sideActive[2] === true }"
         >
           Relatif Prima
         </div>
         <div
-          @click="sideActive = [false, false, false, true, false]"
+          @click="store.sideActive = [false, false, false, true, false]"
           :class="{ active: sideActive[3] === true }"
         >
           Fermat Test
         </div>
         <div
-          @click="sideActive = [false, false, false, false, true]"
+          @click="store.sideActive = [false, false, false, false, true]"
           :class="{ active: sideActive[4] === true }"
         >
           Lehmer Test
         </div>
       </div>
       <div class="side-right-content">
-        <div v-if="sideActive[0] === true">Faktor</div>
-        <div v-if="sideActive[1] === true">Prima</div>
-        <div v-if="sideActive[2] === true">Relatif divrima</div>
-        <div v-if="sideActive[3] === true">Fermat Test</div>
-        <div v-if="sideActive[4] === true">Lehmer Test</div>
+        <div v-if="sideActive[0] === true" class="faktor">
+          <h2>Faktor</h2>
+          <p>Input untuk mengetahui faktor dari suatu bilangan</p>
+          <div class="input-field">
+            <input type="number" v-model="faktor" />
+            <button>Submit</button>
+          </div>
+          <p>
+            Faktor dari {{ faktor }} adalah
+            {{ factors(faktor).join(", ") || 0 }}
+          </p>
+        </div>
+        <div v-if="sideActive[1] === true">
+          <h2>Bilangan Prima</h2>
+          <p>
+            Menjabarkan faktor dari bilangan untuk mengetahui bilangan prima
+          </p>
+          <div class="input-field">
+            <input type="number" v-model="prima" />
+            <button>Submit</button>
+          </div>
+          <div class="prima-result" v-if="factors(prima).length > 0">
+            <h2>{{ prima }}</h2>
+            <p v-for="(number, index) in factors(prima)" :key="index">
+              {{ prima }} : {{ number }} = {{ prima / number }}
+            </p>
+          </div>
+          <p>
+            Perlu diingat bahwa <b>bilangan prima</b> adalah
+            <b>bilangan asli</b> yang memiliki <b>dua</b> faktor yaitu
+            <b>1</b> dan <b>bilangan itu sendiri</b>
+          </p>
+          <p>
+            Maka <b>{{ prima }}</b
+            >&nbsp;
+            <span v-if="factors(prima).length === 2">adalah</span>
+            <span v-else>bukan</span> bilangan prima
+          </p>
+        </div>
+        <div v-if="sideActive[2] === true">
+          <h2>Relatif Prima</h2>
+          <p>Input untuk mengetahui kedua bilangan adalah relatif prima</p>
+          <div class="input-field">
+            <input type="number" v-model="relatif1" />
+            <button>Submit</button>
+          </div>
+          <div class="input-field">
+            <input type="number" v-model="relatif2" />
+            <button>Submit</button>
+          </div>
+          <div class="factor-layout">
+            <div class="prima-result short" v-if="factors(relatif1).length > 0">
+              <h2>{{ relatif1 }}</h2>
+              <p v-for="(number, index) in factors(relatif1)" :key="index">
+                {{ relatif1 }} : {{ number }} = {{ relatif1 / number }}
+              </p>
+            </div>
+            <div class="prima-result short" v-if="factors(relatif2).length > 0">
+              <h2>{{ relatif2 }}</h2>
+              <p v-for="(number, index) in factors(relatif2)" :key="index">
+                {{ relatif2 }} : {{ number }} = {{ relatif2 / number }}
+              </p>
+            </div>
+          </div>
+          <div class="factor-layout">
+            <p>
+              Faktor dari {{ relatif1 }} adalah
+              {{ factors(relatif1).join(", ") || 0 }}
+            </p>
+            <p>
+              Faktor dari {{ relatif2 }} adalah
+              {{ factors(relatif2).join(", ") || 0 }}
+            </p>
+          </div>
+          <p>
+            FPB({{ relatif1 }},{{ relatif2 }}) =
+            {{ __gcd(relatif1, relatif2) }}, dikarenakan nilainya adalah
+            {{ __gcd(relatif1, relatif2) }} maka {{ relatif1 }} dan
+            {{ relatif2 }}
+            <span>{{
+              __gcd(relatif1, relatif2) === 1 ? "adalah" : "bukan"
+            }}</span>
+            relatif prima
+          </p>
+        </div>
+        <div v-if="sideActive[3] === true">
+          <h2>Fermat Test</h2>
+          <p>Input untuk mengetahui bilangan tersebut adalah bilangan prima</p>
+          <div class="input-field">
+            <input type="number" v-model="fermat" />
+            <button>Submit</button>
+          </div>
+          <p>
+            <b>p = {{ fermat }}, p-1 = {{ fermat - 1 }}</b>
+          </p>
+          <div class="table-container">
+            <table>
+              <tr>
+                <td>a</td>
+                <td
+                  v-for="(number, index) in fermat - 2 > 10 ? 10 : fermat - 2"
+                  :key="index"
+                >
+                  {{ number + 1 }}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  a<span>{{ fermat - 1 }}</span> mod {{ fermat }}
+                </td>
+                <td
+                  v-for="(number, index) in fermat - 2 > 10 ? 10 : fermat - 2"
+                  :key="index"
+                >
+                  {{ calculateFermat(number + 1, 3, fermat) }}
+                </td>
+              </tr>
+            </table>
+            <p v-if="fermat > 12" style="text-align: center; width: 500px">
+              <b>...</b>
+            </p>
+            <table v-if="fermat > 12">
+              <tr>
+                <td>a</td>
+                <td
+                  v-for="(number, index) in fermat - 12 > 10 ? 10 : fermat - 12"
+                  :key="index"
+                >
+                  {{ fermat > 22 ? number + fermat - 12 : number + 10 }}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  a<span>{{ fermat - 1 }}</span> mod {{ fermat }}
+                </td>
+                <td
+                  v-for="(number, index) in fermat - 12 > 10 ? 10 : fermat - 12"
+                  :key="index"
+                >
+                  {{
+                    calculateFermat(
+                      fermat > 22 ? number + fermat - 12 : number + 10,
+                      3,
+                      fermat
+                    )
+                  }}
+                </td>
+              </tr>
+            </table>
+          </div>
+          <p>
+            Dikarenakan
+            {{ factors(fermat).length !== 2 ? "tidak" : "" }} mendapatkan hasil
+            1 dari a = 2 sampai {{ fermat - 2 }} maka bilangan bulat p
+            {{
+              factors(fermat).length === 2
+                ? "dinyatakan sebagai bilangan prima."
+                : "bukan bilangan prima"
+            }}
+          </p>
+        </div>
+        <div v-if="sideActive[4] === true">
+          <h2>Lehmer Test</h2>
+          <p>Input untuk mengetahui bilangan tersebut adalah bilangan prima</p>
+          <div class="input-field">
+            <input type="number" v-model="lehmer" />
+            <button>Submit</button>
+          </div>
+          <p>
+            <b
+              >p = {{ lehmer }}, a = 2, FPB({{ lehmer }}, 2) =
+              {{ __gcd(lehmer, 2) }}</b
+            >
+          </p>
+          <p v-if="__gcd(lehmer, 2) !== 1">
+            Dikarenakan FPB dari {{ lehmer }} dan 2 bukan 1 maka
+            {{ lehmer }} dipastikan bukan bilangan prima.
+          </p>
+          <p v-else>
+            Dikarenakan FPB dari {{ lehmer }} dan 2 adalah 1 maka
+            {{ lehmer }} kemungkinan adalah prima, sehingga kita lanjut menguji
+            menggunakan lehmer test
+          </p>
+          <div class="table-container" v-if="__gcd(lehmer, 2) === 1">
+            <table>
+              <tr>
+                <td>e</td>
+                <td
+                  v-for="(number, index) in lehmer - 2 > 10 ? 10 : lehmer - 2"
+                  :key="index"
+                >
+                  {{ number + 1 }}
+                </td>
+              </tr>
+              <tr>
+                <td>a<span>e</span> mod {{ lehmer }}</td>
+                <td
+                  v-for="(number, index) in lehmer - 2 > 10 ? 10 : lehmer - 2"
+                  :key="index"
+                >
+                  {{ calculateLehmer(number + 1, 2, lehmer) }}
+                </td>
+              </tr>
+            </table>
+            <p v-if="lehmer > 12" style="text-align: center; width: 500px">
+              <b>...</b>
+            </p>
+            <table v-if="lehmer > 12">
+              <tr>
+                <td>e</td>
+                <td
+                  v-for="(number, index) in lehmer - 12 > 10 ? 10 : lehmer - 12"
+                  :key="index"
+                >
+                  {{ lehmer > 22 ? number + lehmer - 12 : number + 10 }}
+                </td>
+              </tr>
+              <tr>
+                <td>a<span>e</span> mod {{ lehmer }}</td>
+                <td
+                  v-for="(number, index) in lehmer - 12 > 10 ? 10 : lehmer - 12"
+                  :key="index"
+                >
+                  {{
+                    calculateLehmer(
+                      lehmer > 22 ? number + lehmer - 12 : number + 10,
+                      2,
+                      lehmer
+                    )
+                  }}
+                </td>
+              </tr>
+            </table>
+          </div>
+          <p v-if="__gcd(lehmer, 2) === 1">
+            Dikarenakan
+            {{ factors(lehmer).length === 2 ? "tidak" : "" }} mendapatkan hasil
+            1 dari e = 2 sampai {{ lehmer - 2 }} maka bilangan bulat p
+            {{
+              factors(lehmer).length === 2
+                ? "dinyatakan sebagai bilangan prima."
+                : "bukan bilangan prima"
+            }}
+          </p>
+        </div>
       </div>
     </div>
     <div class="tutorial-button" @click="showTutorial = true">
@@ -349,14 +593,22 @@ import { useSound } from "@vueuse/sound";
 import audio from "../assets/audio.mp3";
 
 const store = useCounterStore();
-let { mode, tutorial } = storeToRefs(store);
+let { mode, tutorial, showSideButton, sideActive, showSide } =
+  storeToRefs(store);
 const { play, isPlaying } = useSound(audio, { volume: 0.15 });
 let tutorialButtonActive = ref([true, false, false]);
 let showTutorial = ref(tutorial.value === false ? true : false);
 let tutorialSlide = ref(1);
 let showButton = ref([true, false]);
-let showSide = ref(false);
-let sideActive = ref([true, false, false, false, false]);
+let faktor = ref(12);
+let prima = ref(12);
+let relatif1 = ref(11);
+let relatif2 = ref(12);
+let lehmer = ref(12);
+let fermat = ref(12);
+
+store.showSideButton = true;
+store.showSide = false;
 
 let startPlay = () => {
   setInterval(() => {
@@ -364,12 +616,67 @@ let startPlay = () => {
   }, 80000);
 };
 
+function factors(n) {
+  var num_factors = [],
+    i;
+  for (i = 1; i <= Math.floor(Math.sqrt(n)); i += 1) {
+    if (n % i === 0) {
+      num_factors.push(i);
+      if (n / i !== i) num_factors.push(n / i);
+    }
+  }
+
+  num_factors.sort(function (x, y) {
+    return x - y;
+  });
+
+  return num_factors;
+}
+
 let tutorialActiveChange = (idx) => {
   tutorialSlide.value = 1;
   tutorialButtonActive.value = [false, false];
   tutorialButtonActive.value[idx] = true;
   changeButton();
 };
+
+function calculateLehmer(e, a, p) {
+  let result = Math.pow(a, e) % p;
+  if (isNaN(result)) {
+    let c = 1;
+    for (let i = 0; i < e; i++) {
+      c *= a;
+      c %= p;
+    }
+    return c;
+  }
+  return result;
+}
+
+function calculateFermat(e, a, p) {
+  let result = Math.pow(p - 1, e) % p;
+  if (isNaN(result)) {
+    let c = 1;
+    for (let i = 0; i < e; i++) {
+      c *= p - 1;
+      c %= p;
+    }
+    return c;
+  }
+  return result;
+}
+
+function __gcd(x, y) {
+  if (typeof x !== "number" || typeof y !== "number") return false;
+  x = Math.abs(x);
+  y = Math.abs(y);
+  while (y) {
+    var t = y;
+    y = x % y;
+    x = t;
+  }
+  return x;
+}
 
 let changeButton = () => {
   if (tutorialButtonActive.value[0] === true) {
@@ -529,6 +836,117 @@ let changeActive = (index) => {
 
     .side-right-content {
       background-color: $white;
+      max-height: 90vh;
+      overflow-y: auto;
+      width: 280px;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        gap: 0.8rem;
+
+        h2 {
+          font-size: 1.7rem;
+          font-weight: bold;
+        }
+
+        .factor-layout {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          align-items: flex-start;
+          padding: 0;
+          width: 100%;
+
+          & > * {
+            width: 100%;
+            max-width: 100%;
+          }
+        }
+
+        .table-container {
+          overflow: auto;
+          width: 250px;
+          padding: 0;
+          align-self: flex-start;
+          display: flex;
+          justify-content: flex-start;
+          align-items: flex-start;
+
+          table {
+            font-size: 0.9rem;
+            border: 1px solid black;
+            width: 500px;
+
+            td {
+              border: 1px solid black;
+              min-width: 20px;
+              span {
+                position: relative;
+                top: -5px;
+                font-size: 0.7rem;
+              }
+            }
+          }
+        }
+        .input-field {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.3rem;
+          flex-direction: row;
+          max-width: 250px;
+          padding: 0;
+
+          input {
+            border: 1px solid $black;
+            border-radius: 10px;
+
+            &::-webkit-outer-spin-button,
+            &::-webkit-inner-spin-button {
+              -webkit-appearance: none;
+              margin: 0;
+            }
+
+            &[type="number"] {
+              -moz-appearance: textfield;
+            }
+          }
+
+          button {
+            color: $black;
+            font-weight: bold;
+          }
+        }
+
+        .prima-result.short {
+          max-height: 250px;
+        }
+        .prima-result {
+          border: 1px dashed $black;
+          max-height: 300px;
+          overflow: auto;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          padding-inline: 0;
+          min-width: 120px;
+
+          &::-webkit-scrollbar {
+            display: none;
+          }
+        }
+
+        & > * {
+          text-align: center;
+        }
+      }
     }
   }
   .tutorial-backdrop {

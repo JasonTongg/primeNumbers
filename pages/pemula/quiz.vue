@@ -173,6 +173,9 @@ let showPopupBantuan2 = ref(false);
 let totalWrong = ref(0);
 let correctAnswer = ref(0);
 
+store.showSideButton = false;
+store.showSide = false;
+
 let generateNumber = () => {
   let i = 0;
   randomNumber.value = [];
@@ -189,30 +192,19 @@ let generateNumber = () => {
 generateNumber();
 
 function factors(n) {
-  // Initialize an empty array num_factors to store the factors
   var num_factors = [],
     i;
-
-  // Iterate through numbers from 1 to the square root of n to find factors
   for (i = 1; i <= Math.floor(Math.sqrt(n)); i += 1) {
-    // Check if i is a factor of n
     if (n % i === 0) {
-      // Push i to the factors array
       num_factors.push(i);
-
-      // Check if n divided by i is not equal to i (avoid duplication for perfect squares)
-      if (n / i !== i)
-        // Push n divided by i to the factors array
-        num_factors.push(n / i);
+      if (n / i !== i) num_factors.push(n / i);
     }
   }
 
-  // Sort the factors array in ascending order using a numeric sort
   num_factors.sort(function (x, y) {
     return x - y;
   });
 
-  // Return the sorted array of factors
   return num_factors;
 }
 
