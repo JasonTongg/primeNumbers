@@ -50,6 +50,10 @@ let getRandom = () => {
     transform: translateX(-50%);
     top: 50px;
     width: 300px;
+
+    @media only screen and (max-width: 400px) {
+      width: 200px;
+    }
   }
 
   a {

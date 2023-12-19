@@ -185,6 +185,9 @@ setTimeout(() => {
         & > * {
           font-size: 1.2rem;
           margin: 0;
+          @media only screen and (max-width: 500px) {
+            font-size: 1.2rem;
+          }
         }
 
         img {
@@ -200,6 +203,7 @@ setTimeout(() => {
         left: 50%;
         width: 95%;
         transform: translateX(-50%);
+        height: 85%;
       }
 
       .teacher {

@@ -245,6 +245,9 @@ setTimeout(() => {
           font-size: 1.2rem;
           margin: 0;
           text-align: center;
+          @media only screen and (max-width: 500px) {
+            font-size: 1.2rem;
+          }
         }
 
         .moduloInput {
@@ -286,6 +289,8 @@ setTimeout(() => {
           color: white;
           width: 150px;
           height: 150px;
+          min-height: 150px;
+          min-width: 150px;
           border-radius: 50%;
           position: relative;
           margin-inline: auto;
@@ -324,6 +329,7 @@ setTimeout(() => {
         left: 50%;
         width: 95%;
         transform: translateX(-50%);
+        height: 85%;
       }
 
       .teacher {

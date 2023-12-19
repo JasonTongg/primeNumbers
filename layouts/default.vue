@@ -67,6 +67,38 @@
         </div>
       </div>
       <div class="side-right-content">
+        <div class="calculator-container">
+          <div
+            @click="store.sideActive = [true, false, false, false, false]"
+            :class="{ active: sideActive[0] === true }"
+          >
+            Faktor
+          </div>
+          <div
+            @click="store.sideActive = [false, true, false, false, false]"
+            :class="{ active: sideActive[1] === true }"
+          >
+            Prima
+          </div>
+          <div
+            @click="store.sideActive = [false, false, true, false, false]"
+            :class="{ active: sideActive[2] === true }"
+          >
+            Relatif Prima
+          </div>
+          <div
+            @click="store.sideActive = [false, false, false, true, false]"
+            :class="{ active: sideActive[3] === true }"
+          >
+            Fermat Test
+          </div>
+          <div
+            @click="store.sideActive = [false, false, false, false, true]"
+            :class="{ active: sideActive[4] === true }"
+          >
+            Lehmer Test
+          </div>
+        </div>
         <div v-if="sideActive[0] === true" class="faktor">
           <h2>Faktor</h2>
           <p>Input untuk mengetahui faktor dari suatu bilangan</p>
@@ -795,10 +827,16 @@ let changeActive = (index) => {
     transform: translateY(-50%);
     width: 370px;
     height: 90vh;
-    z-index: 30;
+    z-index: 110;
     animation: showright 0.5s linear;
     display: grid;
     grid-template-columns: 120px 1fr;
+
+    @media only screen and (max-width: 500px) {
+      grid-template-columns: 1fr;
+      width: calc(100vw - 100px);
+      right: 75px;
+    }
 
     & > * {
       width: 100%;
@@ -810,6 +848,10 @@ let changeActive = (index) => {
       justify-content: flex-start;
       align-items: flex-end;
       width: 100%;
+
+      @media only screen and (max-width: 500px) {
+        display: none;
+      }
 
       div {
         margin-right: 10px;
@@ -841,8 +883,31 @@ let changeActive = (index) => {
       width: 280px;
       color: $black;
 
+      @media only screen and (max-width: 500px) {
+        width: 100%;
+      }
+
       &::-webkit-scrollbar {
         display: none;
+      }
+
+      .calculator-container {
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem;
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        display: none;
+
+        div {
+          background-color: $pastelPrimary;
+          color: $white;
+          padding: 0.3rem 0.5rem;
+        }
+
+        @media only screen and (max-width: 500px) {
+          display: grid;
+        }
       }
 
       div {
@@ -968,6 +1033,7 @@ let changeActive = (index) => {
       width: 1000px;
       min-height: 80vh;
       color: $black;
+      margin-inline: 1rem;
 
       .content-left {
         width: 100%;
@@ -1021,6 +1087,8 @@ let changeActive = (index) => {
           padding-block: 1rem 4rem;
           padding-inline: 3rem;
           flex-direction: column;
+          max-height: 95vh;
+          overflow: auto;
 
           h1 {
             font-size: 2rem;
@@ -1035,6 +1103,14 @@ let changeActive = (index) => {
 
           .intro-1 {
             width: 280px;
+
+            @media only screen and (max-width: 750px) {
+              width: 200px;
+            }
+
+            @media only screen and (max-width: 500px) {
+              width: 150px;
+            }
           }
 
           .intro-4 {
@@ -1055,11 +1131,23 @@ let changeActive = (index) => {
 
         .left-right {
           display: flex;
+
+          @media only screen and (max-width: 750px) {
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+          }
         }
 
         .top-bottom {
           display: flex;
           flex-direction: column;
+
+          @media only screen and (max-width: 500px) {
+            font-size: 0.8rem;
+          }
         }
 
         .close-button {
@@ -1069,6 +1157,10 @@ let changeActive = (index) => {
           font-size: 2rem;
           cursor: pointer;
           color: $black;
+
+          @media only screen and (max-width: 500px) {
+            font-size: 1.5rem;
+          }
 
           &:hover {
             color: red;

@@ -276,9 +276,16 @@ setTimeout(() => {
         justify-content: center;
         color: $black;
 
+        @media only screen and (max-width: 500px) {
+          gap: 0.5rem;
+        }
+
         & > * {
           font-size: 1rem;
           margin: 0;
+          @media only screen and (max-width: 500px) {
+            font-size: 1rem;
+          }
         }
 
         .number-breakdown {
@@ -300,6 +307,10 @@ setTimeout(() => {
           justify-content: center;
           font-weight: bold;
           font-size: 1.7rem;
+
+          @media only screen and (max-width: 500px) {
+            grid-template-columns: repeat(4, 1fr);
+          }
 
           & > * {
             position: relative;
@@ -324,6 +335,7 @@ setTimeout(() => {
         left: 50%;
         width: 95%;
         transform: translateX(-50%);
+        height: 85%;
       }
 
       .teacher {
