@@ -989,12 +989,12 @@ let changeActive = (index) => {
           flex-direction: row;
           max-width: 250px;
           padding: 0;
-          background-color: $white;
-          color: $black;
 
           input {
             border: 1px solid $black;
             border-radius: 10px;
+            background-color: $white;
+            color: $black;
 
             &::-webkit-outer-spin-button,
             &::-webkit-inner-spin-button {
