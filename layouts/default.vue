@@ -194,7 +194,7 @@
           <p>
             <b>p = {{ fermat }}, p-1 = {{ fermat - 1 }}</b>
           </p>
-          <div class="table-container">
+          <div class="table-container" v-if="fermat > 2">
             <table>
               <tr>
                 <td>a</td>
@@ -249,7 +249,7 @@
               </tr>
             </table>
           </div>
-          <p>
+          <p v-if="fermat > 2">
             Dikarenakan
             {{ factors(fermat).length !== 2 ? "tidak" : "" }} mendapatkan hasil
             1 dari a = 2 sampai {{ fermat - 2 }} maka bilangan bulat p
@@ -258,6 +258,14 @@
                 ? "dinyatakan sebagai bilangan prima."
                 : "bukan bilangan prima"
             }}
+          </p>
+          <p v-else-if="fermat === 2">
+            Angka 2 sudah dipastikan merupakan bilangan prima tanpa harus
+            menggunakan fermat test
+          </p>
+          <p v-else-if="fermat === 1">
+            Angka 1 sudah dipastikan bukan bilangan prima tanpa harus
+            menggunakan fermat test
           </p>
         </div>
         <div v-if="sideActive[4] === true">
@@ -273,16 +281,27 @@
               {{ __gcd(lehmer, 2) }}</b
             >
           </p>
-          <p v-if="__gcd(lehmer, 2) !== 1">
+          <p v-if="__gcd(lehmer, 2) !== 1 && lehmer !== 2">
             Dikarenakan FPB dari {{ lehmer }} dan 2 bukan 1 maka
             {{ lehmer }} dipastikan bukan bilangan prima.
+          </p>
+          <p v-else-if="lehmer === 1">
+            1 sudah dipastikan bukan bilangan prima sehingga tidak perlu
+            melakukan lehmer test
+          </p>
+          <p v-else-if="lehmer === 2">
+            2 sudah dipastikan merupakan bilangan prima sehingga tidak perlu
+            melakukan lehmer test
           </p>
           <p v-else>
             Dikarenakan FPB dari {{ lehmer }} dan 2 adalah 1 maka
             {{ lehmer }} kemungkinan adalah prima, sehingga kita lanjut menguji
             menggunakan lehmer test
           </p>
-          <div class="table-container" v-if="__gcd(lehmer, 2) === 1">
+          <div
+            class="table-container"
+            v-if="__gcd(lehmer, 2) === 1 && lehmer > 2"
+          >
             <table>
               <tr>
                 <td>e</td>
@@ -333,7 +352,7 @@
               </tr>
             </table>
           </div>
-          <p v-if="__gcd(lehmer, 2) === 1">
+          <p v-if="__gcd(lehmer, 2) === 1 && lehmer > 2">
             Dikarenakan
             {{ factors(lehmer).length === 2 ? "tidak" : "" }} mendapatkan hasil
             1 dari e = 2 sampai {{ lehmer - 2 }} maka bilangan bulat p
@@ -343,6 +362,7 @@
                 : "bukan bilangan prima"
             }}
           </p>
+          <!-- <p v-else>Angka 1 atau 2 merupakan bilangan prima tanpa harus menggunakan fermat test</p> -->
         </div>
       </div>
     </div>
@@ -969,6 +989,8 @@ let changeActive = (index) => {
           flex-direction: row;
           max-width: 250px;
           padding: 0;
+          background-color: $white;
+          color: $black;
 
           input {
             border: 1px solid $black;
