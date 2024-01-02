@@ -40,34 +40,28 @@
               class="clock-arrow"
               :style="{
                 transform: `translate(-50%, 0) rotateZ(${
-                  (360 * (totalClockNumber % totalModulo)) / totalClockNumber
+                  (360 * (totalClockNumber % totalModulo)) / totalModulo
                 }deg)`,
               }"
             ></div>
             <div
               class="clock-number"
-              v-for="(number, index) in totalClockNumber"
+              v-for="(number, index) in totalModulo"
               :key="index"
               :style="{
                 transform: `translate(-50%, 0) rotateZ(${
-                  (360 * number) / totalClockNumber
+                  (360 * number) / totalModulo
                 }deg)`,
               }"
             >
               <p
                 :style="{
                   transform: `rotateZ(${
-                    ((360 * number) / totalClockNumber) * -1
+                    ((360 * number) / totalModulo) * -1
                   }deg)`,
                 }"
               >
-                {{
-                  number === totalClockNumber
-                    ? totalModulo > totalClockNumber
-                      ? number
-                      : 0
-                    : number
-                }}
+                {{ number === totalModulo ? 0 : number }}
               </p>
             </div>
           </div>
