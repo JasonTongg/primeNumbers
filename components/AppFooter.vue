@@ -2,6 +2,7 @@
   <div class="footer-container">
     <NuxtLink
       class="img-container"
+      aria-label="pemula"
       @click="changeActive2(0)"
       :class="active[0] === true && 'active'"
       to="/pemula"
@@ -10,6 +11,7 @@
     </NuxtLink>
     <NuxtLink
       class="img-container"
+      aria-label="home"
       @click="changeActive2(1)"
       :class="active[1] === true && 'active'"
       to="/"
@@ -18,6 +20,7 @@
     </NuxtLink>
     <NuxtLink
       class="img-container"
+      aria-label="amatir"
       @click="changeActive2(2)"
       :class="active[2] === true && 'active'"
       to="/amatir"

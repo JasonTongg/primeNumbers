@@ -1,4 +1,8 @@
 <template>
+  <Head>
+    <Title>Prime Numbers</Title>
+    <meta name="description" content="This is the description of the page." />
+  </Head>
   <div
     class="layout-container"
     @click="
@@ -639,6 +643,11 @@
 </template>
 
 <script setup>
+useHead({
+  htmlAttrs: {
+    lang: "en",
+  },
+});
 import { useCounterStore } from "../store/index";
 import { storeToRefs } from "pinia";
 import { useSound } from "@vueuse/sound";

@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@kyvg/vue3-notification": "^3.0.2",
+    "@nuxt-modules/compression": "^0.1.0",
     "@nuxt/ui": "^2.11.0",
     "@pinia/nuxt": "^0.4.11",
     "@vueuse/sound": "^2.0.1",
