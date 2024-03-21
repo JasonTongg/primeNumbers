@@ -31,8 +31,8 @@
         <img class="teacher" src="../../../assets/teacher.png" alt="" />
         <div class="content">
           <p>
-            Bilangan prima adalah bilangan asli yang memiliki dua faktor yaitu 1
-            dan bilangan itu sendiri
+            bilangan prima adalah bilangan asli yang lebih besar dari 1 dan
+            hanya memiliki dua faktor positif, yaitu 1 dan bilangan itu sendiri.
           </p>
           <p>Maksud dari faktor, bilangan asli dan bilangan itu sendiri apa?</p>
         </div>
